@@ -65,7 +65,7 @@ const AyahCard = ({
     >
       {/* Ayah Number & Controls Header */}
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-x-3">
           {/* Ayah Number Badge */}
           <div className="w-8 h-8 lg:w-10 lg:h-10 bg-primary rounded-full flex items-center justify-center">
             <span className="text-sm lg:text-base font-heading font-semibold text-primary-foreground">
@@ -86,7 +86,7 @@ const AyahCard = ({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center gap-x-1">
           <Button
             variant="ghost"
             onClick={onBookmark}
@@ -123,10 +123,10 @@ const AyahCard = ({
       </div>
 
       {/* Translation Toggle */}
-      <div className="flex items-center space-x-4 mb-3">
+      <div className="flex items-center gap-x-4 mb-3">
         <button
           onClick={() => setShowTranslation(!showTranslation)}
-          className="flex items-center space-x-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-200"
+          className="flex items-center gap-x-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-200"
         >
           <Icon
             name={showTranslation ? "ChevronDown" : "ChevronRight"}
@@ -137,7 +137,7 @@ const AyahCard = ({
 
         <button
           onClick={() => setShowTransliteration(!showTransliteration)}
-          className="flex items-center space-x-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-200"
+          className="flex items-center gap-x-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-200"
         >
           <Icon
             name={showTransliteration ? "ChevronDown" : "ChevronRight"}
@@ -168,7 +168,7 @@ const AyahCard = ({
       {/* Audio Progress Bar (when playing) */}
       {isPlaying && (
         <div className="mt-4 pt-3 border-t border-border">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center gap-x-3">
             <Icon name="Volume2" size={16} className="text-text-secondary" />
             <div className="flex-1 h-1 bg-surface rounded-full">
               <div className="h-full bg-primary rounded-full w-1/3 transition-all duration-300" />

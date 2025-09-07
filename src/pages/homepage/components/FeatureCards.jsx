@@ -1,32 +1,40 @@
-import React from 'react';
-import Icon from '../../../components/AppIcon';
+import React from "react";
+import Icon from "../../../components/AppIcon";
 
-const FeatureCards = ({ onBrowseClick, onContinueReading, onFeaturedReciter, lastReadingSurah, featuredReciter }) => {
+const FeatureCards = ({
+  onBrowseClick,
+  onContinueReading,
+  onFeaturedReciter,
+  lastReadingSurah,
+  featuredReciter,
+}) => {
   const features = [
     {
-      id: 'browse',
-      title: 'Browse All Surahs',
-      description: 'Explore the complete Quran with 114 Surahs',
-      icon: 'Book',
+      id: "browse",
+      title: "Browse All Surahs",
+      description: "Explore the complete Quran with 114 Surahs",
+      icon: "Book",
       action: onBrowseClick,
-      primary: true
+      primary: true,
     },
     {
-      id: 'continue',
-      title: 'Continue Reading',
-      description: lastReadingSurah ? `Resume from ${lastReadingSurah.name}` : 'Start your journey',
-      icon: 'BookOpen',
+      id: "continue",
+      title: "Continue Reading",
+      description: lastReadingSurah
+        ? `Resume from ${lastReadingSurah.name}`
+        : "Start your journey",
+      icon: "BookOpen",
       action: onContinueReading,
-      disabled: !lastReadingSurah
+      disabled: !lastReadingSurah,
     },
     {
-      id: 'featured',
-      title: 'Featured Reciter',
+      id: "featured",
+      title: "Featured Reciter",
       description: `Listen to ${featuredReciter.name}`,
-      icon: 'Headphones',
+      icon: "Headphones",
       action: onFeaturedReciter,
-      accent: true
-    }
+      accent: true,
+    },
   ];
 
   return (
@@ -39,41 +47,47 @@ const FeatureCards = ({ onBrowseClick, onContinueReading, onFeaturedReciter, las
             disabled={feature.disabled}
             className={`group p-6 rounded-lg border-2 transition-all duration-200 text-left disabled:opacity-50 disabled:cursor-not-allowed ${
               feature.primary
-                ? 'border-primary bg-primary-50 hover:bg-primary-100 hover:border-primary-600'
+                ? "border-primary bg-primary-50 hover:bg-primary-100 hover:border-primary-600"
                 : feature.accent
-                ? 'border-accent bg-accent-50 hover:bg-accent-100 hover:border-accent-600' :'border-border bg-background hover:border-primary-200 hover:bg-surface-hover'
+                ? "border-accent bg-accent-50 hover:bg-accent-100 hover:border-accent-600"
+                : "border-border bg-background hover:border-primary-200 hover:bg-surface-hover"
             }`}
           >
-            <div className="flex items-start space-x-4">
-              <div className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-200 ${
-                feature.primary
-                  ? 'bg-primary text-primary-foreground group-hover:bg-primary-600'
-                  : feature.accent
-                  ? 'bg-accent text-accent-foreground group-hover:bg-accent-600'
-                  : 'bg-surface text-text-primary group-hover:bg-primary group-hover:text-primary-foreground'
-              }`}>
+            <div className="flex items-start gap-x-4">
+              <div
+                className={`w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors duration-200 ${
+                  feature.primary
+                    ? "bg-primary text-primary-foreground group-hover:bg-primary-600"
+                    : feature.accent
+                    ? "bg-accent text-accent-foreground group-hover:bg-accent-600"
+                    : "bg-surface text-text-primary group-hover:bg-primary group-hover:text-primary-foreground"
+                }`}
+              >
                 <Icon name={feature.icon} size={24} />
               </div>
-              
+
               <div className="flex-1 min-w-0">
-                <h3 className={`text-lg font-heading font-semibold mb-2 transition-colors duration-200 ${
-                  feature.primary
-                    ? 'text-primary group-hover:text-primary-700'
-                    : feature.accent
-                    ? 'text-accent group-hover:text-accent-700' :'text-text-primary'
-                }`}>
+                <h3
+                  className={`text-lg font-heading font-semibold mb-2 transition-colors duration-200 ${
+                    feature.primary
+                      ? "text-primary group-hover:text-primary-700"
+                      : feature.accent
+                      ? "text-accent group-hover:text-accent-700"
+                      : "text-text-primary"
+                  }`}
+                >
                   {feature.title}
                 </h3>
                 <p className="text-sm text-text-secondary group-hover:text-text-primary transition-colors duration-200">
                   {feature.description}
                 </p>
               </div>
-              
-              <Icon 
-                name="ChevronRight" 
-                size={20} 
+
+              <Icon
+                name="ChevronRight"
+                size={20}
                 className={`text-text-secondary group-hover:text-text-primary transition-colors duration-200 ${
-                  feature.disabled ? 'opacity-50' : ''
+                  feature.disabled ? "opacity-50" : ""
                 }`}
               />
             </div>

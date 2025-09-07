@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import Icon from '../../../components/AppIcon';
+import React, { useState, useRef, useEffect } from "react";
+import Icon from "../../../components/AppIcon";
 
 const PullToRefresh = ({ onRefresh, children }) => {
   const [isPulling, setIsPulling] = useState(false);
@@ -56,14 +56,18 @@ const PullToRefresh = ({ onRefresh, children }) => {
       isAtTop = false;
     };
 
-    container.addEventListener('touchstart', handleTouchStart, { passive: false });
-    container.addEventListener('touchmove', handleTouchMove, { passive: false });
-    container.addEventListener('touchend', handleTouchEnd);
+    container.addEventListener("touchstart", handleTouchStart, {
+      passive: false,
+    });
+    container.addEventListener("touchmove", handleTouchMove, {
+      passive: false,
+    });
+    container.addEventListener("touchend", handleTouchEnd);
 
     return () => {
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchmove', handleTouchMove);
-      container.removeEventListener('touchend', handleTouchEnd);
+      container.removeEventListener("touchstart", handleTouchStart);
+      container.removeEventListener("touchmove", handleTouchMove);
+      container.removeEventListener("touchend", handleTouchEnd);
     };
   }, [onRefresh, pullDistance, isRefreshing]);
 
@@ -80,33 +84,42 @@ const PullToRefresh = ({ onRefresh, children }) => {
           opacity: isPulling ? 1 : 0,
         }}
       >
-        <div className="flex flex-col items-center space-y-2">
+        <div className="flex flex-col items-center gap-y-2">
           <div
             className={`w-8 h-8 rounded-full border-2 border-primary flex items-center justify-center transition-all duration-200 ${
-              isRefreshing ? 'animate-spin' : ''
+              isRefreshing ? "animate-spin" : ""
             }`}
             style={{
               transform: `rotate(${pullProgress * 180}deg)`,
-              borderColor: shouldTrigger ? 'var(--color-primary)' : 'var(--color-border)',
+              borderColor: shouldTrigger
+                ? "var(--color-primary)"
+                : "var(--color-border)",
             }}
           >
             <Icon
-              name={isRefreshing ? 'Loader2' : shouldTrigger ? 'RefreshCw' : 'ArrowDown'}
+              name={
+                isRefreshing
+                  ? "Loader2"
+                  : shouldTrigger
+                  ? "RefreshCw"
+                  : "ArrowDown"
+              }
               size={16}
               className={`transition-colors duration-200 ${
-                shouldTrigger ? 'text-primary' : 'text-text-secondary'
+                shouldTrigger ? "text-primary" : "text-text-secondary"
               }`}
             />
           </div>
           <span
             className={`text-xs font-caption transition-colors duration-200 ${
-              shouldTrigger ? 'text-primary' : 'text-text-secondary'
+              shouldTrigger ? "text-primary" : "text-text-secondary"
             }`}
           >
             {isRefreshing
-              ? 'Refreshing...'
+              ? "Refreshing..."
               : shouldTrigger
-              ? 'Release to refresh' :'Pull to refresh'}
+              ? "Release to refresh"
+              : "Pull to refresh"}
           </span>
         </div>
       </div>

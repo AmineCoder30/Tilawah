@@ -3,7 +3,7 @@ import Icon from "../../../components/AppIcon";
 import Button from "../../../components/ui/Button";
 import quran from "../../../images/quran.png";
 import { Riwayat } from "../../../constants/riwayat";
-import { useAudioPlayer } from "contexts/AudioPlayerContext";
+import { useAudioPlayer } from "../../../contexts/AudioPlayerContext";
 import axios from "axios";
 
 const ReciterSelectionPanel = ({
@@ -93,13 +93,13 @@ const ReciterSelectionPanel = ({
           {/* Content */}
           <div className="flex-1 overflow-y-auto p-4 lg:p-6">
             {activeTab === "reciters" ? (
-              <div className="space-y-3">
+              <div className="gap-y-3">
                 {reciters.length > 0 &&
                   reciters.map((reciter) => (
                     <button
                       key={reciter.id}
                       onClick={() => onReciterChange(reciter)}
-                      className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors duration-200 text-left ${
+                      className={`w-full flex items-center gap-x-3 p-3 rounded-lg transition-colors duration-200 text-left ${
                         selectedReciter?.id === reciter.id
                           ? "bg-primary-50 border border-primary text-primary"
                           : "hover:bg-surface-hover border border-transparent"
@@ -126,7 +126,7 @@ const ReciterSelectionPanel = ({
                       >
                         {reciter.arabicName}
                       </p> */}
-                        <div className="flex items-center space-x-2 mt-1">
+                        <div className="flex items-center gap-x-2 mt-1">
                           {/* <span className="text-xs text-text-secondary">
                           {reciter.country}
                         </span> */}
@@ -148,7 +148,7 @@ const ReciterSelectionPanel = ({
                   ))}
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="gap-y-3">
                 {Riwayat.map((riwayah) => (
                   <button
                     key={riwayah.id}

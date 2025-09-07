@@ -249,7 +249,7 @@ const Homepage = () => {
           {/* Islamic Pattern Decoration */}
           <div className="px-4 py-8">
             <div className="max-w-2xl mx-auto text-center">
-              <div className="flex justify-center items-center space-x-2 mb-4">
+              <div className="flex justify-center items-center gap-x-2 mb-4">
                 <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-primary"></div>
                 <div className="w-2 h-2 bg-primary rounded-full"></div>
                 <div className="w-4 h-0.5 bg-primary"></div>

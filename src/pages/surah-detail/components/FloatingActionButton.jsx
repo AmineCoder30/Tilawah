@@ -70,16 +70,16 @@ const FloatingActionButton = ({
           />
 
           {/* Action Menu */}
-          <div className="absolute bottom-16 right-0 mb-2 space-y-2 animate-fade-in">
+          <div className="absolute bottom-16 right-0 mb-2 gap-y-2 animate-fade-in">
             {actions.map((action, index) => (
               <div
                 key={action.id}
-                className="flex items-center space-x-3"
+                className="flex items-center gap-x-3"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 {/* Action Label */}
                 <div className="hidden lg:block bg-background border border-border rounded-lg px-3 py-2 shadow-gentle">
-                  <span className="text-sm font-medium text-text-primary whitespace-nowrap">
+                  <span className="text-sm font-medium text-text-primary whitegap-nowrap">
                     {action.label}
                   </span>
                 </div>
@@ -132,7 +132,7 @@ const FloatingActionButton = ({
                 <button
                   key={action.id}
                   onClick={() => handleActionClick(action)}
-                  className="flex flex-col items-center space-y-2 p-4 bg-surface hover:bg-surface-hover rounded-lg transition-colors duration-200"
+                  className="flex flex-col items-center gap-y-2 p-4 bg-surface hover:bg-surface-hover rounded-lg transition-colors duration-200"
                 >
                   <div className="w-10 h-10 bg-primary-50 rounded-full flex items-center justify-center">
                     <Icon

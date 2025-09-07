@@ -1,6 +1,6 @@
-import React from 'react';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
+import React from "react";
+import Icon from "../../../components/AppIcon";
+import Button from "../../../components/ui/Button";
 
 const FeaturedReciterCard = ({ reciter, onPlaySample, onViewProfile }) => {
   return (
@@ -15,7 +15,7 @@ const FeaturedReciterCard = ({ reciter, onPlaySample, onViewProfile }) => {
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+        <div className="flex flex-col md:flex-row items-center gap-y-4 md:gap-y-0 md:gap-x-6">
           {/* Reciter Avatar */}
           <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
             <Icon name="User" size={40} className="text-primary-foreground" />
@@ -32,7 +32,7 @@ const FeaturedReciterCard = ({ reciter, onPlaySample, onViewProfile }) => {
             <p className="text-sm text-text-secondary mb-3">
               {reciter.description}
             </p>
-            
+
             <div className="flex flex-wrap gap-2 justify-center md:justify-start">
               {reciter.specialties.map((specialty, index) => (
                 <span
@@ -46,7 +46,7 @@ const FeaturedReciterCard = ({ reciter, onPlaySample, onViewProfile }) => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col space-y-2 flex-shrink-0">
+          <div className="flex flex-col gap-y-2 flex-shrink-0">
             <Button
               variant="primary"
               size="sm"

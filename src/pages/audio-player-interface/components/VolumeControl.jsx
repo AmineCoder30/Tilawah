@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import Button from '../../../components/ui/Button';
+import Button from "../../../components/ui/Button";
 
 const VolumeControl = ({ volume, onVolumeChange, isMuted, onToggleMute }) => {
   const [showVolumeSlider, setShowVolumeSlider] = useState(false);
 
   const getVolumeIcon = () => {
-    if (isMuted || volume === 0) return 'VolumeX';
-    if (volume < 0.5) return 'Volume1';
-    return 'Volume2';
+    if (isMuted || volume === 0) return "VolumeX";
+    if (volume < 0.5) return "Volume1";
+    return "Volume2";
   };
 
   return (
@@ -20,10 +20,10 @@ const VolumeControl = ({ volume, onVolumeChange, isMuted, onToggleMute }) => {
         onClick={onToggleMute}
         iconName={getVolumeIcon()}
         iconSize={18}
-        aria-label={isMuted ? 'Unmute' : 'Mute'}
+        aria-label={isMuted ? "Unmute" : "Mute"}
         className="text-text-primary hover:text-primary"
       />
-      
+
       <div className="hidden lg:flex items-center ml-2">
         <input
           type="range"
@@ -48,15 +48,15 @@ const VolumeControl = ({ volume, onVolumeChange, isMuted, onToggleMute }) => {
           aria-label="Volume options"
           className="ml-1 text-text-secondary"
         />
-        
+
         {showVolumeSlider && (
           <>
-            <div 
+            <div
               className="fixed inset-0 z-300"
               onClick={() => setShowVolumeSlider(false)}
             />
             <div className="absolute bottom-full right-0 mb-2 p-3 bg-background border border-border rounded-lg shadow-gentle-lg z-400">
-              <div className="flex flex-col items-center space-y-2">
+              <div className="flex flex-col items-center gap-y-2">
                 <span className="text-xs text-text-secondary">Volume</span>
                 <input
                   type="range"
@@ -66,7 +66,10 @@ const VolumeControl = ({ volume, onVolumeChange, isMuted, onToggleMute }) => {
                   value={isMuted ? 0 : volume}
                   onChange={(e) => onVolumeChange(parseFloat(e.target.value))}
                   className="w-16 h-1 bg-surface rounded-full appearance-none cursor-pointer slider vertical"
-                  style={{ writingMode: 'bt-lr', WebkitAppearance: 'slider-vertical' }}
+                  style={{
+                    writingMode: "bt-lr",
+                    WebkitAppearance: "slider-vertical",
+                  }}
                   aria-label="Volume control"
                 />
                 <span className="text-xs text-text-secondary font-data">

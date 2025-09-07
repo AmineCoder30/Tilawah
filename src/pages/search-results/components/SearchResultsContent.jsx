@@ -1,23 +1,30 @@
-import React from 'react';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
-import SurahResultCard from './SurahResultCard';
-import AyahResultCard from './AyahResultCard';
-import ReciterResultCard from './ReciterResultCard';
+import React from "react";
+import Icon from "../../../components/AppIcon";
+import Button from "../../../components/ui/Button";
+import SurahResultCard from "./SurahResultCard";
+import AyahResultCard from "./AyahResultCard";
+import ReciterResultCard from "./ReciterResultCard";
 
-const SearchResultsContent = ({ searchQuery, isLoading, results, onLoadMore, hasMore }) => {
+const SearchResultsContent = ({
+  searchQuery,
+  isLoading,
+  results,
+  onLoadMore,
+  hasMore,
+}) => {
   const { surahs = [], ayahs = [], reciters = [], translations = [] } = results;
-  const totalResults = surahs.length + ayahs.length + reciters.length + translations.length;
+  const totalResults =
+    surahs.length + ayahs.length + reciters.length + translations.length;
 
   if (isLoading && totalResults === 0) {
     return (
-      <div className="space-y-4">
+      <div className="gap-y-4">
         {/* Loading Skeleton */}
         {[...Array(6)].map((_, index) => (
           <div key={index} className="bg-surface rounded-lg p-4 animate-pulse">
-            <div className="flex items-start space-x-4">
+            <div className="flex items-start gap-x-4">
               <div className="w-12 h-12 bg-surface-hover rounded-lg"></div>
-              <div className="flex-1 space-y-2">
+              <div className="flex-1 gap-y-2">
                 <div className="h-4 bg-surface-hover rounded w-3/4"></div>
                 <div className="h-3 bg-surface-hover rounded w-1/2"></div>
                 <div className="h-3 bg-surface-hover rounded w-full"></div>
@@ -32,12 +39,16 @@ const SearchResultsContent = ({ searchQuery, isLoading, results, onLoadMore, has
   if (!searchQuery) {
     return (
       <div className="text-center py-12">
-        <Icon name="Search" size={64} className="text-text-secondary mx-auto mb-4" />
+        <Icon
+          name="Search"
+          size={64}
+          className="text-text-secondary mx-auto mb-4"
+        />
         <h2 className="text-xl font-heading font-semibold text-text-primary mb-2">
           Search the Quran
         </h2>
         <p className="text-text-secondary max-w-md mx-auto">
-          Enter a search term to find Surahs, Ayahs, translations, or reciters. 
+          Enter a search term to find Surahs, Ayahs, translations, or reciters.
           You can search in both Arabic and English.
         </p>
       </div>
@@ -47,16 +58,21 @@ const SearchResultsContent = ({ searchQuery, isLoading, results, onLoadMore, has
   if (totalResults === 0 && !isLoading) {
     return (
       <div className="text-center py-12">
-        <Icon name="SearchX" size={64} className="text-text-secondary mx-auto mb-4" />
+        <Icon
+          name="SearchX"
+          size={64}
+          className="text-text-secondary mx-auto mb-4"
+        />
         <h2 className="text-xl font-heading font-semibold text-text-primary mb-2">
           No results found
         </h2>
         <p className="text-text-secondary max-w-md mx-auto mb-6">
-          We couldn't find any results for "{searchQuery}". Try adjusting your search terms or filters.
+          We couldn't find any results for "{searchQuery}". Try adjusting your
+          search terms or filters.
         </p>
-        <div className="space-y-2 text-sm text-text-secondary">
+        <div className="gap-y-2 text-sm text-text-secondary">
           <p className="font-medium">Search suggestions:</p>
-          <ul className="space-y-1">
+          <ul className="gap-y-1">
             <li>• Try searching for Surah names like "Fatiha" or "Baqarah"</li>
             <li>• Search for specific topics like "prayer" or "patience"</li>
             <li>• Use Arabic text or transliteration</li>
@@ -68,11 +84,11 @@ const SearchResultsContent = ({ searchQuery, isLoading, results, onLoadMore, has
   }
 
   return (
-    <div className="space-y-8">
+    <div className="gap-y-8">
       {/* Surahs Section */}
       {surahs.length > 0 && (
         <section>
-          <div className="flex items-center space-x-2 mb-4">
+          <div className="flex items-center gap-x-2 mb-4">
             <Icon name="Book" size={20} className="text-primary" />
             <h2 className="text-lg font-heading font-semibold text-text-primary">
               Surahs ({surahs.length})
@@ -93,13 +109,13 @@ const SearchResultsContent = ({ searchQuery, isLoading, results, onLoadMore, has
       {/* Ayahs Section */}
       {ayahs.length > 0 && (
         <section>
-          <div className="flex items-center space-x-2 mb-4">
+          <div className="flex items-center gap-x-2 mb-4">
             <Icon name="FileText" size={20} className="text-primary" />
             <h2 className="text-lg font-heading font-semibold text-text-primary">
               Ayahs ({ayahs.length})
             </h2>
           </div>
-          <div className="space-y-4">
+          <div className="gap-y-4">
             {ayahs.map((ayah) => (
               <AyahResultCard
                 key={`${ayah.surahId}-${ayah.number}`}
@@ -114,7 +130,7 @@ const SearchResultsContent = ({ searchQuery, isLoading, results, onLoadMore, has
       {/* Reciters Section */}
       {reciters.length > 0 && (
         <section>
-          <div className="flex items-center space-x-2 mb-4">
+          <div className="flex items-center gap-x-2 mb-4">
             <Icon name="Mic" size={20} className="text-primary" />
             <h2 className="text-lg font-heading font-semibold text-text-primary">
               Reciters ({reciters.length})
@@ -135,13 +151,13 @@ const SearchResultsContent = ({ searchQuery, isLoading, results, onLoadMore, has
       {/* Translations Section */}
       {translations.length > 0 && (
         <section>
-          <div className="flex items-center space-x-2 mb-4">
+          <div className="flex items-center gap-x-2 mb-4">
             <Icon name="Languages" size={20} className="text-primary" />
             <h2 className="text-lg font-heading font-semibold text-text-primary">
               Translations ({translations.length})
             </h2>
           </div>
-          <div className="space-y-4">
+          <div className="gap-y-4">
             {translations.map((translation, index) => (
               <div
                 key={index}
@@ -159,7 +175,11 @@ const SearchResultsContent = ({ searchQuery, isLoading, results, onLoadMore, has
                       {translation.text}
                     </p>
                   </div>
-                  <Icon name="ExternalLink" size={16} className="text-text-secondary ml-4 flex-shrink-0" />
+                  <Icon
+                    name="ExternalLink"
+                    size={16}
+                    className="text-text-secondary ml-4 flex-shrink-0"
+                  />
                 </div>
               </div>
             ))}
@@ -178,7 +198,7 @@ const SearchResultsContent = ({ searchQuery, isLoading, results, onLoadMore, has
             iconPosition="right"
             className={isLoading ? "animate-spin" : ""}
           >
-            {isLoading ? 'Loading...' : 'Load More Results'}
+            {isLoading ? "Loading..." : "Load More Results"}
           </Button>
         </div>
       )}

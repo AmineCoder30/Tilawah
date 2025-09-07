@@ -1,22 +1,22 @@
-import React from 'react';
+import React from "react";
 
-import Button from '../../../components/ui/Button';
+import Button from "../../../components/ui/Button";
 
-const PlaybackControls = ({ 
-  isPlaying, 
-  isLoading, 
-  onPlayPause, 
-  onPrevious, 
-  onNext, 
-  canGoPrevious, 
+const PlaybackControls = ({
+  isPlaying,
+  isLoading,
+  onPlayPause,
+  onPrevious,
+  onNext,
+  canGoPrevious,
   canGoNext,
-  size = 'large' 
+  size = "large",
 }) => {
-  const iconSize = size === 'large' ? 32 : size === 'medium' ? 24 : 20;
-  const buttonSize = size === 'large' ? 'xl' : size === 'medium' ? 'lg' : 'md';
+  const iconSize = size === "large" ? 32 : size === "medium" ? 24 : 20;
+  const buttonSize = size === "large" ? "xl" : size === "medium" ? "lg" : "md";
 
   return (
-    <div className="flex items-center justify-center space-x-4">
+    <div className="flex items-center justify-center gap-x-4">
       <Button
         variant="ghost"
         size={buttonSize}
@@ -28,7 +28,7 @@ const PlaybackControls = ({
         aria-label="Previous ayah"
         className="text-text-primary hover:text-primary disabled:opacity-50"
       />
-      
+
       <Button
         variant="primary"
         size={buttonSize}
@@ -36,12 +36,12 @@ const PlaybackControls = ({
         onClick={onPlayPause}
         disabled={isLoading}
         loading={isLoading}
-        iconName={isPlaying ? 'Pause' : 'Play'}
+        iconName={isPlaying ? "Pause" : "Play"}
         iconSize={iconSize}
-        aria-label={isPlaying ? 'Pause' : 'Play'}
+        aria-label={isPlaying ? "Pause" : "Play"}
         className="shadow-gentle-md"
       />
-      
+
       <Button
         variant="ghost"
         size={buttonSize}

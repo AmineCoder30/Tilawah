@@ -1,7 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Icon from "../../../components/AppIcon";
+import Button from "../../../components/ui/Button";
 
 const SurahResultCard = ({ surah, searchQuery }) => {
   const navigate = useNavigate();
@@ -17,16 +17,21 @@ const SurahResultCard = ({ surah, searchQuery }) => {
 
   const highlightText = (text, query) => {
     if (!query) return text;
-    
-    const regex = new RegExp(`(${query})`, 'gi');
+
+    const regex = new RegExp(`(${query})`, "gi");
     const parts = text.split(regex);
-    
-    return parts.map((part, index) => 
+
+    return parts.map((part, index) =>
       regex.test(part) ? (
-        <mark key={index} className="bg-accent-100 text-accent-800 px-1 rounded">
+        <mark
+          key={index}
+          className="bg-accent-100 text-accent-800 px-1 rounded"
+        >
           {part}
         </mark>
-      ) : part
+      ) : (
+        part
+      )
     );
   };
 
@@ -38,7 +43,7 @@ const SurahResultCard = ({ surah, searchQuery }) => {
       <div className="flex items-start justify-between">
         <div className="flex-1 min-w-0">
           {/* Surah Number and Name */}
-          <div className="flex items-center space-x-3 mb-2">
+          <div className="flex items-center gap-x-3 mb-2">
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
               <span className="text-sm font-bold text-primary-foreground">
                 {surah.number}
@@ -55,16 +60,16 @@ const SurahResultCard = ({ surah, searchQuery }) => {
           </div>
 
           {/* Surah Details */}
-          <div className="flex items-center space-x-4 text-xs text-text-secondary mb-3">
-            <div className="flex items-center space-x-1">
+          <div className="flex items-center gap-x-4 text-xs text-text-secondary mb-3">
+            <div className="flex items-center gap-x-1">
               <Icon name="MapPin" size={12} />
               <span>{surah.revelationType}</span>
             </div>
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center gap-x-1">
               <Icon name="FileText" size={12} />
               <span>{surah.ayahCount} Ayahs</span>
             </div>
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center gap-x-1">
               <Icon name="Clock" size={12} />
               <span>{surah.duration}</span>
             </div>
@@ -92,7 +97,8 @@ const SurahResultCard = ({ surah, searchQuery }) => {
       {surah.matchContext && (
         <div className="mt-3 pt-3 border-t border-border">
           <p className="text-xs text-text-secondary">
-            <span className="font-medium">Match found in:</span> {surah.matchContext}
+            <span className="font-medium">Match found in:</span>{" "}
+            {surah.matchContext}
           </p>
         </div>
       )}

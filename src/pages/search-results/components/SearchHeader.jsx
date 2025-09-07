@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import Icon from '../../../components/AppIcon';
-import Input from '../../../components/ui/Input';
-import Button from '../../../components/ui/Button';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import Icon from "../../../components/AppIcon";
+import Input from "../../../components/ui/Input";
+import Button from "../../../components/ui/Button";
 
 const SearchHeader = ({ onFilterToggle, resultCount, isLoading }) => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const [recentSearches, setRecentSearches] = useState([
-    'Al-Fatiha',
-    'Ayat al-Kursi',
-    'Surah Yasin',
-    'Rahman',
-    'Mulk'
+    "Al-Fatiha",
+    "Ayat al-Kursi",
+    "Surah Yasin",
+    "Rahman",
+    "Mulk",
   ]);
 
   useEffect(() => {
-    const query = searchParams.get('q');
+    const query = searchParams.get("q");
     if (query) {
       setSearchQuery(query);
     }
@@ -27,12 +27,15 @@ const SearchHeader = ({ onFilterToggle, resultCount, isLoading }) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       const newParams = new URLSearchParams(searchParams);
-      newParams.set('q', searchQuery.trim());
+      newParams.set("q", searchQuery.trim());
       setSearchParams(newParams);
-      
+
       // Add to recent searches
-      setRecentSearches(prev => {
-        const newSearches = [searchQuery.trim(), ...prev.filter(item => item !== searchQuery.trim())].slice(0, 5);
+      setRecentSearches((prev) => {
+        const newSearches = [
+          searchQuery.trim(),
+          ...prev.filter((item) => item !== searchQuery.trim()),
+        ].slice(0, 5);
         return newSearches;
       });
     }
@@ -41,13 +44,13 @@ const SearchHeader = ({ onFilterToggle, resultCount, isLoading }) => {
   const handleRecentSearchClick = (query) => {
     setSearchQuery(query);
     const newParams = new URLSearchParams(searchParams);
-    newParams.set('q', query);
+    newParams.set("q", query);
     setSearchParams(newParams);
   };
 
   const clearSearch = () => {
-    setSearchQuery('');
-    navigate('/search-results');
+    setSearchQuery("");
+    navigate("/search-results");
   };
 
   return (
@@ -83,11 +86,11 @@ const SearchHeader = ({ onFilterToggle, resultCount, isLoading }) => {
 
         {/* Search Info and Filters */}
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-x-4">
             {searchQuery && (
               <div className="text-sm text-text-secondary">
                 {isLoading ? (
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center gap-x-2">
                     <Icon name="Loader2" size={16} className="animate-spin" />
                     <span>Searching...</span>
                   </div>
@@ -99,7 +102,7 @@ const SearchHeader = ({ onFilterToggle, resultCount, isLoading }) => {
               </div>
             )}
           </div>
-          
+
           <Button
             variant="ghost"
             onClick={onFilterToggle}
@@ -113,8 +116,10 @@ const SearchHeader = ({ onFilterToggle, resultCount, isLoading }) => {
 
         {/* Recent Searches */}
         {!searchQuery && recentSearches.length > 0 && (
-          <div className="space-y-2">
-            <h3 className="text-sm font-medium text-text-secondary">Recent Searches</h3>
+          <div className="gap-y-2">
+            <h3 className="text-sm font-medium text-text-secondary">
+              Recent Searches
+            </h3>
             <div className="flex flex-wrap gap-2">
               {recentSearches.map((query, index) => (
                 <button

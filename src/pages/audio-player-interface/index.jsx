@@ -1,17 +1,17 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-import Button from '../../components/ui/Button';
-import Header from '../../components/ui/Header';
-import PrimaryTabNavigation from '../../components/ui/PrimaryTabNavigation';
-import ReciterCarousel from './components/ReciterCarousel';
-import PlaybackControls from './components/PlaybackControls';
-import ProgressBar from './components/ProgressBar';
-import VolumeControl from './components/VolumeControl';
-import PlaybackModeToggle from './components/PlaybackModeToggle';
-import SpeedControl from './components/SpeedControl';
-import AyahDisplay from './components/AyahDisplay';
-import StickyPlayer from './components/StickyPlayer';
+import Button from "../../components/ui/Button";
+import Header from "../../components/ui/Header";
+import PrimaryTabNavigation from "../../components/ui/PrimaryTabNavigation";
+import ReciterCarousel from "./components/ReciterCarousel";
+import PlaybackControls from "./components/PlaybackControls";
+import ProgressBar from "./components/ProgressBar";
+import VolumeControl from "./components/VolumeControl";
+import PlaybackModeToggle from "./components/PlaybackModeToggle";
+import SpeedControl from "./components/SpeedControl";
+import AyahDisplay from "./components/AyahDisplay";
+import StickyPlayer from "./components/StickyPlayer";
 
 const AudioPlayerInterface = () => {
   const navigate = useNavigate();
@@ -26,19 +26,20 @@ const AudioPlayerInterface = () => {
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);
-  const [playbackMode, setPlaybackMode] = useState('ayah');
+  const [playbackMode, setPlaybackMode] = useState("ayah");
 
   // UI state
   const [isExpanded, setIsExpanded] = useState(true);
-  const [selectedRiwayah, setSelectedRiwayah] = useState('Hafs');
+  const [selectedRiwayah, setSelectedRiwayah] = useState("Hafs");
   const [showTranslation, setShowTranslation] = useState(true);
 
   // Mock data
   const mockCurrentAyah = {
     number: 1,
     arabicText: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-    translation: "In the name of Allah, the Entirely Merciful, the Especially Merciful.",
-    transliteration: "Bismillahi\'r-rahmani\'r-raheem"
+    translation:
+      "In the name of Allah, the Entirely Merciful, the Especially Merciful.",
+    transliteration: "Bismillahi'r-rahmani'r-raheem",
   };
 
   const mockSurahName = "Al-Fatiha";
@@ -46,52 +47,58 @@ const AudioPlayerInterface = () => {
     id: 1,
     name: mockSurahName,
     totalAyahs: 7,
-    currentAyah: 1
+    currentAyah: 1,
   };
 
   const mockReciters = [
     {
       id: 1,
       name: "Abdul Basit",
-      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      photo:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
       riwayah: ["Hafs", "Warsh"],
-      audioUrl: "/assets/audio/abdul-basit/"
+      audioUrl: "/assets/audio/abdul-basit/",
     },
     {
       id: 2,
       name: "Mishary Rashid",
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      photo:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
       riwayah: ["Hafs"],
-      audioUrl: "/assets/audio/mishary/"
+      audioUrl: "/assets/audio/mishary/",
     },
     {
       id: 3,
       name: "Saad Al-Ghamdi",
-      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+      photo:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
       riwayah: ["Hafs", "Qalun"],
-      audioUrl: "/assets/audio/saad/"
+      audioUrl: "/assets/audio/saad/",
     },
     {
       id: 4,
       name: "Maher Al-Muaiqly",
-      photo: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face",
+      photo:
+        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&h=150&fit=crop&crop=face",
       riwayah: ["Hafs"],
-      audioUrl: "/assets/audio/maher/"
+      audioUrl: "/assets/audio/maher/",
     },
     {
       id: 5,
       name: "Ahmed Al-Ajmi",
-      photo: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
+      photo:
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
       riwayah: ["Hafs", "Warsh"],
-      audioUrl: "/assets/audio/ahmed/"
+      audioUrl: "/assets/audio/ahmed/",
     },
     {
       id: 6,
       name: "Yasser Al-Dosari",
-      photo: "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face",
+      photo:
+        "https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=150&h=150&fit=crop&crop=face",
       riwayah: ["Hafs"],
-      audioUrl: "/assets/audio/yasser/"
-    }
+      audioUrl: "/assets/audio/yasser/",
+    },
   ];
 
   const [selectedReciter, setSelectedReciter] = useState(mockReciters[0]);
@@ -107,26 +114,26 @@ const AudioPlayerInterface = () => {
     const handleCanPlay = () => setIsLoading(false);
     const handleEnded = () => {
       setIsPlaying(false);
-      if (playbackMode === 'surah') {
+      if (playbackMode === "surah") {
         handleNext();
-      } else if (playbackMode === 'repeat') {
+      } else if (playbackMode === "repeat") {
         audio.currentTime = 0;
         audio.play();
       }
     };
 
-    audio.addEventListener('timeupdate', updateTime);
-    audio.addEventListener('loadedmetadata', updateDuration);
-    audio.addEventListener('loadstart', handleLoadStart);
-    audio.addEventListener('canplay', handleCanPlay);
-    audio.addEventListener('ended', handleEnded);
+    audio.addEventListener("timeupdate", updateTime);
+    audio.addEventListener("loadedmetadata", updateDuration);
+    audio.addEventListener("loadstart", handleLoadStart);
+    audio.addEventListener("canplay", handleCanPlay);
+    audio.addEventListener("ended", handleEnded);
 
     return () => {
-      audio.removeEventListener('timeupdate', updateTime);
-      audio.removeEventListener('loadedmetadata', updateDuration);
-      audio.removeEventListener('loadstart', handleLoadStart);
-      audio.removeEventListener('canplay', handleCanPlay);
-      audio.removeEventListener('ended', handleEnded);
+      audio.removeEventListener("timeupdate", updateTime);
+      audio.removeEventListener("loadedmetadata", updateDuration);
+      audio.removeEventListener("loadstart", handleLoadStart);
+      audio.removeEventListener("canplay", handleCanPlay);
+      audio.removeEventListener("ended", handleEnded);
     };
   }, [playbackMode]);
 
@@ -146,14 +153,14 @@ const AudioPlayerInterface = () => {
   const handlePrevious = () => {
     if (mockCurrentSurah.currentAyah > 1) {
       // In real app, load previous ayah
-      console.log('Loading previous ayah');
+      console.log("Loading previous ayah");
     }
   };
 
   const handleNext = () => {
     if (mockCurrentSurah.currentAyah < mockCurrentSurah.totalAyahs) {
       // In real app, load next ayah
-      console.log('Loading next ayah');
+      console.log("Loading next ayah");
     }
   };
 
@@ -196,7 +203,7 @@ const AudioPlayerInterface = () => {
   const handleReciterSelect = (reciter) => {
     setSelectedReciter(reciter);
     // In real app, load new audio source
-    console.log('Selected reciter:', reciter.name);
+    console.log("Selected reciter:", reciter.name);
   };
 
   const canGoPrevious = mockCurrentSurah.currentAyah > 1;
@@ -206,7 +213,7 @@ const AudioPlayerInterface = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <PrimaryTabNavigation />
-      
+
       {/* Hidden Audio Element */}
       <audio
         ref={audioRef}
@@ -255,7 +262,7 @@ const AudioPlayerInterface = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => navigate('/surah-detail')}
+                  onClick={() => navigate("/surah-detail")}
                   iconName="FileText"
                   iconSize={20}
                   aria-label="View text"
@@ -264,7 +271,7 @@ const AudioPlayerInterface = () => {
               </div>
 
               {/* Content */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-6">
+              <div className="flex-1 overflow-y-auto p-4 gap-y-6">
                 {/* Current Ayah Display */}
                 <AyahDisplay
                   ayah={mockCurrentAyah}
@@ -299,12 +306,12 @@ const AudioPlayerInterface = () => {
                     isMuted={isMuted}
                     onToggleMute={handleToggleMute}
                   />
-                  
+
                   <PlaybackModeToggle
                     mode={playbackMode}
                     onModeChange={setPlaybackMode}
                   />
-                  
+
                   <SpeedControl
                     speed={playbackSpeed}
                     onSpeedChange={handleSpeedChange}
@@ -320,18 +327,20 @@ const AudioPlayerInterface = () => {
                 />
 
                 {/* Options */}
-                <div className="space-y-3">
+                <div className="gap-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-text-secondary">Show Translation</span>
+                    <span className="text-sm text-text-secondary">
+                      Show Translation
+                    </span>
                     <Button
-                      variant={showTranslation ? 'primary' : 'ghost'}
+                      variant={showTranslation ? "primary" : "ghost"}
                       size="xs"
                       onClick={() => setShowTranslation(!showTranslation)}
-                      iconName={showTranslation ? 'Eye' : 'EyeOff'}
+                      iconName={showTranslation ? "Eye" : "EyeOff"}
                       iconSize={16}
                     />
                   </div>
-                  
+
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-text-secondary">Riwayah</span>
                     <select
@@ -352,11 +361,11 @@ const AudioPlayerInterface = () => {
           {/* Desktop Modal */}
           <div className="hidden lg:block">
             {/* Backdrop */}
-            <div 
+            <div
               className="fixed inset-0 bg-black bg-opacity-50 z-300"
               onClick={() => setIsExpanded(false)}
             />
-            
+
             {/* Modal */}
             <div className="fixed inset-8 z-400 bg-background rounded-lg shadow-gentle-lg overflow-hidden">
               <div className="flex h-full">
@@ -379,7 +388,7 @@ const AudioPlayerInterface = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                  <div className="flex-1 overflow-y-auto p-6 gap-y-6">
                     {/* Progress */}
                     <ProgressBar
                       currentTime={currentTime}
@@ -407,12 +416,12 @@ const AudioPlayerInterface = () => {
                         isMuted={isMuted}
                         onToggleMute={handleToggleMute}
                       />
-                      
+
                       <PlaybackModeToggle
                         mode={playbackMode}
                         onModeChange={setPlaybackMode}
                       />
-                      
+
                       <SpeedControl
                         speed={playbackSpeed}
                         onSpeedChange={handleSpeedChange}
@@ -428,20 +437,24 @@ const AudioPlayerInterface = () => {
                     />
 
                     {/* Options */}
-                    <div className="space-y-3">
+                    <div className="gap-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-text-secondary">Show Translation</span>
+                        <span className="text-sm text-text-secondary">
+                          Show Translation
+                        </span>
                         <Button
-                          variant={showTranslation ? 'primary' : 'ghost'}
+                          variant={showTranslation ? "primary" : "ghost"}
                           size="xs"
                           onClick={() => setShowTranslation(!showTranslation)}
-                          iconName={showTranslation ? 'Eye' : 'EyeOff'}
+                          iconName={showTranslation ? "Eye" : "EyeOff"}
                           iconSize={16}
                         />
                       </div>
-                      
+
                       <div className="flex items-center justify-between">
-                        <span className="text-sm text-text-secondary">Riwayah</span>
+                        <span className="text-sm text-text-secondary">
+                          Riwayah
+                        </span>
                         <select
                           value={selectedRiwayah}
                           onChange={(e) => setSelectedRiwayah(e.target.value)}
@@ -465,7 +478,7 @@ const AudioPlayerInterface = () => {
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => navigate('/surah-detail')}
+                      onClick={() => navigate("/surah-detail")}
                       iconName="FileText"
                       iconSize={18}
                       aria-label="View full text"
@@ -474,7 +487,7 @@ const AudioPlayerInterface = () => {
                       View Full Text
                     </Button>
                   </div>
-                  
+
                   <div className="flex-1 overflow-y-auto p-6">
                     <AyahDisplay
                       ayah={mockCurrentAyah}

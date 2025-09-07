@@ -2,7 +2,7 @@ import React from "react";
 import Icon from "../../../components/AppIcon";
 import Button from "../../../components/ui/Button";
 import quran from "../../../images/quran.png";
-import { useAudioPlayer } from "contexts/AudioPlayerContext";
+import { useAudioPlayer } from "../../../contexts/AudioPlayerContext";
 
 const SurahInfoSidebar = ({
   surah,
@@ -78,7 +78,7 @@ const SurahInfoSidebar = ({
           <p className="text-sm text-text-secondary mb-2">
             {surah.englishName}
           </p>
-          <div className="flex items-center justify-center space-x-2 text-xs text-text-secondary">
+          <div className="flex items-center justify-center gap-x-2 text-xs text-text-secondary">
             <span className="px-2 py-1 bg-background rounded">
               {surah.revelationType}
             </span>
@@ -114,7 +114,7 @@ const SurahInfoSidebar = ({
             Current Reciter
           </h3>
           <div className="bg-background rounded-lg p-4">
-            <div className="flex items-center space-x-3 mb-3">
+            <div className="flex items-center gap-x-3 mb-3">
               <div className="w-10 h-10 rounded-full overflow-hidden">
                 <img
                   src={quran}
@@ -151,10 +151,10 @@ const SurahInfoSidebar = ({
           <h3 className="text-sm font-heading font-medium text-text-secondary mb-3">
             Playback Mode
           </h3>
-          <div className="space-y-2">
+          <div className="gap-y-2">
             <button
               onClick={() => onPlaybackModeChange("individual")}
-              className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors duration-200 ${
+              className={`w-full flex items-center gap-x-3 p-3 rounded-lg transition-colors duration-200 ${
                 playbackMode === "individual"
                   ? "bg-primary-50 border border-primary text-primary"
                   : "bg-background hover:bg-surface-hover text-text-secondary"
@@ -169,7 +169,7 @@ const SurahInfoSidebar = ({
 
             <button
               onClick={() => onPlaybackModeChange("continuous")}
-              className={`w-full flex items-center space-x-3 p-3 rounded-lg transition-colors duration-200 ${
+              className={`w-full flex items-center gap-x-3 p-3 rounded-lg transition-colors duration-200 ${
                 playbackMode === "continuous"
                   ? "bg-primary-50 border border-primary text-primary"
                   : "bg-background hover:bg-surface-hover text-text-secondary"
@@ -190,12 +190,12 @@ const SurahInfoSidebar = ({
             <h3 className="text-sm font-heading font-medium text-text-secondary mb-3">
               Bookmarked Ayahs
             </h3>
-            <div className="space-y-2 max-h-32 overflow-y-auto">
+            <div className="gap-y-2 max-h-32 overflow-y-auto">
               {bookmarkedAyahs.slice(0, 5).map((ayahNumber) => (
                 <button
                   key={ayahNumber}
                   onClick={() => onBookmarkClick(ayahNumber)}
-                  className="w-full flex items-center space-x-3 p-2 bg-background hover:bg-surface-hover rounded transition-colors duration-200 text-left"
+                  className="w-full flex items-center gap-x-3 p-2 bg-background hover:bg-surface-hover rounded transition-colors duration-200 text-left"
                 >
                   <Icon name="Bookmark" size={14} className="text-primary" />
                   <span className="text-sm text-text-primary">
@@ -213,7 +213,7 @@ const SurahInfoSidebar = ({
         )}
 
         {/* Quick Actions */}
-        <div className="space-y-2">
+        <div className="gap-y-2">
           <Button
             variant="outline"
             iconName="Share"

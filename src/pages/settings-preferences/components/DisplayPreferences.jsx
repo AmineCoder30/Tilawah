@@ -1,18 +1,34 @@
-import React, { useState } from 'react';
-import Icon from '../../../components/AppIcon';
-import { useTheme } from '../../../contexts/ThemeContext';
+import React, { useState } from "react";
+import Icon from "../../../components/AppIcon";
+import { useTheme } from "../../../contexts/ThemeContext";
 
 const DisplayPreferences = ({ isExpanded, onToggle }) => {
   const { isDarkMode, toggleTheme } = useTheme();
-  const [selectedFont, setSelectedFont] = useState('noto-sans-arabic');
+  const [selectedFont, setSelectedFont] = useState("noto-sans-arabic");
   const [textSize, setTextSize] = useState(16);
-  const [numeralSystem, setNumeralSystem] = useState('western');
+  const [numeralSystem, setNumeralSystem] = useState("western");
 
   const arabicFonts = [
-    { id: 'noto-sans-arabic', name: 'Noto Sans Arabic', sample: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ' },
-    { id: 'amiri', name: 'Amiri', sample: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ' },
-    { id: 'scheherazade', name: 'Scheherazade', sample: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ' },
-    { id: 'uthmanic', name: 'Uthmanic Hafs', sample: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ' }
+    {
+      id: "noto-sans-arabic",
+      name: "Noto Sans Arabic",
+      sample: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+    },
+    {
+      id: "amiri",
+      name: "Amiri",
+      sample: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+    },
+    {
+      id: "scheherazade",
+      name: "Scheherazade",
+      sample: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+    },
+    {
+      id: "uthmanic",
+      name: "Uthmanic Hafs",
+      sample: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+    },
   ];
 
   const handleFontChange = (fontId) => {
@@ -34,7 +50,7 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
         className="w-full flex items-center justify-between p-4 hover:bg-surface-hover transition-colors duration-200"
         aria-expanded={isExpanded}
       >
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-x-3">
           <div className="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center">
             <Icon name="Monitor" size={20} className="text-primary" />
           </div>
@@ -47,46 +63,48 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
             </p>
           </div>
         </div>
-        <Icon 
-          name={isExpanded ? "ChevronUp" : "ChevronDown"} 
-          size={20} 
-          className="text-text-secondary" 
+        <Icon
+          name={isExpanded ? "ChevronUp" : "ChevronDown"}
+          size={20}
+          className="text-text-secondary"
         />
       </button>
 
       {isExpanded && (
-        <div className="px-4 pb-4 space-y-6">
+        <div className="px-4 pb-4 gap-y-6">
           {/* Theme Toggle - Now connected to global theme context */}
-          <div className="space-y-3">
+          <div className="gap-y-3">
             <h4 className="text-sm font-heading font-medium text-text-primary">
               Theme
             </h4>
             <div className="flex items-center justify-between p-3 bg-background rounded-lg border border-border">
-              <div className="flex items-center space-x-3">
-                <Icon 
-                  name={isDarkMode ? "Moon" : "Sun"} 
-                  size={18} 
-                  className="text-text-secondary" 
+              <div className="flex items-center gap-x-3">
+                <Icon
+                  name={isDarkMode ? "Moon" : "Sun"}
+                  size={18}
+                  className="text-text-secondary"
                 />
                 <div>
                   <p className="text-sm font-medium text-text-primary">
-                    {isDarkMode ? 'Dark Mode' : 'Light Mode'}
+                    {isDarkMode ? "Dark Mode" : "Light Mode"}
                   </p>
                   <p className="text-xs text-text-secondary">
-                    {isDarkMode ? 'Dark theme for low-light reading' : 'Light theme for daytime reading'}
+                    {isDarkMode
+                      ? "Dark theme for low-light reading"
+                      : "Light theme for daytime reading"}
                   </p>
                 </div>
               </div>
               <button
                 onClick={toggleTheme}
                 className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ${
-                  isDarkMode ? 'bg-primary' : 'bg-border-medium'
+                  isDarkMode ? "bg-primary" : "bg-border-medium"
                 }`}
                 aria-label="Toggle theme"
               >
                 <span
                   className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ${
-                    isDarkMode ? 'translate-x-6' : 'translate-x-1'
+                    isDarkMode ? "translate-x-6" : "translate-x-1"
                   }`}
                 />
               </button>
@@ -94,18 +112,19 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
           </div>
 
           {/* Arabic Font Selection */}
-          <div className="space-y-3">
+          <div className="gap-y-3">
             <h4 className="text-sm font-heading font-medium text-text-primary">
               Arabic Font
             </h4>
-            <div className="space-y-2">
+            <div className="gap-y-2">
               {arabicFonts.map((font) => (
                 <button
                   key={font.id}
                   onClick={() => handleFontChange(font.id)}
                   className={`w-full p-3 rounded-lg border transition-colors duration-200 text-left ${
                     selectedFont === font.id
-                      ? 'border-primary bg-primary-50' :'border-border bg-background hover:bg-surface-hover'
+                      ? "border-primary bg-primary-50"
+                      : "border-border bg-background hover:bg-surface-hover"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
@@ -116,9 +135,9 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
                       <Icon name="Check" size={16} className="text-primary" />
                     )}
                   </div>
-                  <p 
+                  <p
                     className="text-lg text-text-primary"
-                    style={{ fontSize: `${textSize}px`, direction: 'rtl' }}
+                    style={{ fontSize: `${textSize}px`, direction: "rtl" }}
                   >
                     {font.sample}
                   </p>
@@ -128,7 +147,7 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
           </div>
 
           {/* Text Size */}
-          <div className="space-y-3">
+          <div className="gap-y-3">
             <div className="flex items-center justify-between">
               <h4 className="text-sm font-heading font-medium text-text-primary">
                 Text Size
@@ -137,7 +156,7 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
                 {textSize}px
               </span>
             </div>
-            <div className="space-y-3">
+            <div className="gap-y-3">
               <input
                 type="range"
                 min="12"
@@ -153,64 +172,65 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
               </div>
               {/* Preview */}
               <div className="p-3 bg-background rounded-lg border border-border">
-                <p 
+                <p
                   className="text-text-primary mb-2"
-                  style={{ fontSize: `${textSize}px`, direction: 'rtl' }}
+                  style={{ fontSize: `${textSize}px`, direction: "rtl" }}
                 >
                   بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                 </p>
-                <p 
+                <p
                   className="text-text-secondary"
                   style={{ fontSize: `${Math.max(12, textSize - 2)}px` }}
                 >
-                  In the name of Allah, the Entirely Merciful, the Especially Merciful.
+                  In the name of Allah, the Entirely Merciful, the Especially
+                  Merciful.
                 </p>
               </div>
             </div>
           </div>
 
           {/* Numeral System */}
-          <div className="space-y-3">
+          <div className="gap-y-3">
             <h4 className="text-sm font-heading font-medium text-text-primary">
               Numeral System
             </h4>
             <div className="grid grid-cols-2 gap-3">
               <button
-                onClick={() => handleNumeralSystemChange('western')}
+                onClick={() => handleNumeralSystemChange("western")}
                 className={`p-3 rounded-lg border transition-colors duration-200 ${
-                  numeralSystem === 'western' ?'border-primary bg-primary-50' :'border-border bg-background hover:bg-surface-hover'
+                  numeralSystem === "western"
+                    ? "border-primary bg-primary-50"
+                    : "border-border bg-background hover:bg-surface-hover"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-text-primary">
                     Western
                   </span>
-                  {numeralSystem === 'western' && (
+                  {numeralSystem === "western" && (
                     <Icon name="Check" size={16} className="text-primary" />
                   )}
                 </div>
-                <p className="text-lg text-text-primary font-data">
-                  1 2 3 4 5
-                </p>
+                <p className="text-lg text-text-primary font-data">1 2 3 4 5</p>
               </button>
-              
+
               <button
-                onClick={() => handleNumeralSystemChange('arabic-indic')}
+                onClick={() => handleNumeralSystemChange("arabic-indic")}
                 className={`p-3 rounded-lg border transition-colors duration-200 ${
-                  numeralSystem === 'arabic-indic' ?'border-primary bg-primary-50' :'border-border bg-background hover:bg-surface-hover'
+                  numeralSystem === "arabic-indic"
+                    ? "border-primary bg-primary-50"
+                    : "border-border bg-background hover:bg-surface-hover"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-text-primary">
                     Arabic-Indic
                   </span>
-                  {numeralSystem === 'arabic-indic' && (
+                  {numeralSystem === "arabic-indic" && (
                     <Icon name="Check" size={16} className="text-primary" />
                   )}
                 </div>
-                <p className="text-lg text-text-primary font-data">
-                  ١ ٢ ٣ ٤ ٥
-                </p>
+                <p className="text-lg text-text-primary font-data">١ ٢ ٣ ٤ ٥</p>
               </button>
             </div>
           </div>

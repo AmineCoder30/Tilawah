@@ -10,7 +10,7 @@ import FloatingActionButton from "./components/FloatingActionButton";
 import ReadingControls from "./components/ReadingControls";
 import SurahInfoSidebar from "./components/SurahInfoSidebar";
 import axios from "axios";
-import { useAudioPlayer } from "contexts/AudioPlayerContext";
+import { useAudioPlayer } from "../../contexts/AudioPlayerContext";
 
 import { set } from "date-fns";
 
@@ -309,7 +309,7 @@ const SurahDetail = () => {
             ref={mainContentRef}
             className="px-4 lg:px-6 py-6 pb-32 lg:pb-6"
           >
-            <div className="max-w-4xl mx-auto space-y-6">
+            <div className="max-w-4xl mx-auto gap-y-6">
               {ayahs.map((ayah, index) => (
                 <div
                   key={ayah.number}

@@ -1,7 +1,12 @@
-import React from 'react';
-import SurahCard from './SurahCard';
+import React from "react";
+import SurahCard from "./SurahCard";
 
-const SurahGrid = ({ surahs, favoritedSurahs, onToggleFavorite, isLoading }) => {
+const SurahGrid = ({
+  surahs,
+  favoritedSurahs,
+  onToggleFavorite,
+  isLoading,
+}) => {
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
@@ -11,9 +16,9 @@ const SurahGrid = ({ surahs, favoritedSurahs, onToggleFavorite, isLoading }) => 
             className="bg-surface border border-border rounded-lg p-4 animate-pulse"
           >
             <div className="flex items-start justify-between mb-3">
-              <div className="flex items-center space-x-3 flex-1">
+              <div className="flex items-center gap-x-3 flex-1">
                 <div className="w-10 h-10 bg-border rounded-lg" />
-                <div className="flex-1 space-y-2">
+                <div className="flex-1 gap-y-2">
                   <div className="h-5 bg-border rounded w-3/4" />
                   <div className="h-4 bg-border rounded w-1/2" />
                 </div>
@@ -21,14 +26,14 @@ const SurahGrid = ({ surahs, favoritedSurahs, onToggleFavorite, isLoading }) => 
               <div className="w-8 h-8 bg-border rounded-lg" />
             </div>
             <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center gap-x-4">
                 <div className="h-4 bg-border rounded w-16" />
                 <div className="h-4 bg-border rounded w-20" />
               </div>
               <div className="h-3 bg-border rounded w-8" />
             </div>
             <div className="pt-3 border-t border-border">
-              <div className="space-y-2">
+              <div className="gap-y-2">
                 <div className="h-3 bg-border rounded w-full" />
                 <div className="h-3 bg-border rounded w-2/3" />
               </div>

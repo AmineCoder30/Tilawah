@@ -1,10 +1,10 @@
-import React from 'react';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
-import ProgressBar from './ProgressBar';
-import PlaybackControls from './PlaybackControls';
+import React from "react";
+import Icon from "../../../components/AppIcon";
+import Button from "../../../components/ui/Button";
+import ProgressBar from "./ProgressBar";
+import PlaybackControls from "./PlaybackControls";
 
-const StickyPlayer = ({ 
+const StickyPlayer = ({
   currentAyah,
   surahName,
   reciterName,
@@ -18,7 +18,7 @@ const StickyPlayer = ({
   onSeek,
   onExpand,
   canGoPrevious,
-  canGoNext
+  canGoNext,
 }) => {
   if (!currentAyah) return null;
 
@@ -39,13 +39,17 @@ const StickyPlayer = ({
           <div className="flex items-center justify-between">
             <button
               onClick={onExpand}
-              className="flex items-center space-x-3 flex-1 min-w-0"
+              className="flex items-center gap-x-3 flex-1 min-w-0"
               aria-label="Expand player"
             >
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                <Icon name="Music" size={20} className="text-primary-foreground" />
+                <Icon
+                  name="Music"
+                  size={20}
+                  className="text-primary-foreground"
+                />
               </div>
-              
+
               <div className="min-w-0 flex-1 text-left">
                 <p className="text-sm font-medium text-text-primary truncate">
                   {surahName} - Ayah {currentAyah.number}
@@ -56,7 +60,7 @@ const StickyPlayer = ({
               </div>
             </button>
 
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center gap-x-1">
               <PlaybackControls
                 isPlaying={isPlaying}
                 isLoading={isLoading}
@@ -78,11 +82,15 @@ const StickyPlayer = ({
           <div className="flex items-center justify-between mb-3">
             <button
               onClick={onExpand}
-              className="flex items-center space-x-3 flex-1 min-w-0"
+              className="flex items-center gap-x-3 flex-1 min-w-0"
               aria-label="Expand player"
             >
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                <Icon name="Music" size={20} className="text-primary-foreground" />
+                <Icon
+                  name="Music"
+                  size={20}
+                  className="text-primary-foreground"
+                />
               </div>
               <div className="min-w-0 flex-1 text-left">
                 <p className="text-sm font-medium text-text-primary truncate">
@@ -93,7 +101,7 @@ const StickyPlayer = ({
                 </p>
               </div>
             </button>
-            
+
             <Button
               variant="ghost"
               size="xs"

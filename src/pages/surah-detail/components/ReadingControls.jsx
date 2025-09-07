@@ -1,6 +1,6 @@
 import React from "react";
 import Icon from "../../../components/AppIcon";
-import { useTheme } from "contexts/ThemeContext";
+import { useTheme } from "../../../contexts/ThemeContext";
 
 const ReadingControls = ({
   fontSize,
@@ -20,9 +20,9 @@ const ReadingControls = ({
       <div className="px-4 lg:px-6 py-3">
         <div className="flex items-center justify-between">
           {/* Font Size Controls */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-x-2">
             <Icon name="Type" size={16} className="text-text-secondary" />
-            <div className="flex items-center space-x-1 bg-surface rounded-lg p-1">
+            <div className="flex items-center gap-x-1 bg-surface rounded-lg p-1">
               {fontSizes.map((size, index) => (
                 <button
                   key={size.id}
@@ -51,11 +51,11 @@ const ReadingControls = ({
           </div>
 
           {/* Toggle Controls */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-x-2">
             {/* Arabic Numbers Toggle */}
             <button
               onClick={onArabicNumbersToggle}
-              className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors duration-200 ${
+              className={`flex items-center gap-x-2 px-3 py-2 rounded-lg transition-colors duration-200 ${
                 showArabicNumbers
                   ? "bg-primary-50 text-primary border border-primary-200"
                   : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"

@@ -322,7 +322,7 @@ const SurahListing = () => {
                 Browse and discover the 114 chapters of the Holy Quran
               </p>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-x-2">
               <Button
                 variant={showFavoritesOnly ? "primary" : "ghost"}
                 size="sm"

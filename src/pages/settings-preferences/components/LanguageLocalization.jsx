@@ -1,20 +1,25 @@
-import React, { useState } from 'react';
-import Icon from '../../../components/AppIcon';
+import React, { useState } from "react";
+import Icon from "../../../components/AppIcon";
 
 const LanguageLocalization = ({ isExpanded, onToggle }) => {
-  const [translationLanguage, setTranslationLanguage] = useState('english');
-  const [interfaceLanguage, setInterfaceLanguage] = useState('english');
+  const [translationLanguage, setTranslationLanguage] = useState("english");
+  const [interfaceLanguage, setInterfaceLanguage] = useState("english");
   const [rtlLayout, setRtlLayout] = useState(true);
 
   const supportedLanguages = [
-    { id: 'english', name: 'English', nativeName: 'English', flag: '🇺🇸' },
-    { id: 'urdu', name: 'Urdu', nativeName: 'اردو', flag: '🇵🇰' },
-    { id: 'french', name: 'French', nativeName: 'Français', flag: '🇫🇷' },
-    { id: 'indonesian', name: 'Indonesian', nativeName: 'Bahasa Indonesia', flag: '🇮🇩' },
-    { id: 'turkish', name: 'Turkish', nativeName: 'Türkçe', flag: '🇹🇷' },
-    { id: 'arabic', name: 'Arabic', nativeName: 'العربية', flag: '🇸🇦' },
-    { id: 'malay', name: 'Malay', nativeName: 'Bahasa Melayu', flag: '🇲🇾' },
-    { id: 'bengali', name: 'Bengali', nativeName: 'বাংলা', flag: '🇧🇩' }
+    { id: "english", name: "English", nativeName: "English", flag: "🇺🇸" },
+    { id: "urdu", name: "Urdu", nativeName: "اردو", flag: "🇵🇰" },
+    { id: "french", name: "French", nativeName: "Français", flag: "🇫🇷" },
+    {
+      id: "indonesian",
+      name: "Indonesian",
+      nativeName: "Bahasa Indonesia",
+      flag: "🇮🇩",
+    },
+    { id: "turkish", name: "Turkish", nativeName: "Türkçe", flag: "🇹🇷" },
+    { id: "arabic", name: "Arabic", nativeName: "العربية", flag: "🇸🇦" },
+    { id: "malay", name: "Malay", nativeName: "Bahasa Melayu", flag: "🇲🇾" },
+    { id: "bengali", name: "Bengali", nativeName: "বাংলা", flag: "🇧🇩" },
   ];
 
   const handleTranslationLanguageChange = (languageId) => {
@@ -29,8 +34,12 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
     setRtlLayout(!rtlLayout);
   };
 
-  const selectedTranslationLang = supportedLanguages.find(l => l.id === translationLanguage);
-  const selectedInterfaceLang = supportedLanguages.find(l => l.id === interfaceLanguage);
+  const selectedTranslationLang = supportedLanguages.find(
+    (l) => l.id === translationLanguage
+  );
+  const selectedInterfaceLang = supportedLanguages.find(
+    (l) => l.id === interfaceLanguage
+  );
 
   return (
     <div className="bg-surface rounded-lg border border-border overflow-hidden">
@@ -39,7 +48,7 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
         className="w-full flex items-center justify-between p-4 hover:bg-surface-hover transition-colors duration-200"
         aria-expanded={isExpanded}
       >
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-x-3">
           <div className="w-10 h-10 bg-primary-50 rounded-lg flex items-center justify-center">
             <Icon name="Languages" size={20} className="text-primary" />
           </div>
@@ -52,24 +61,24 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
             </p>
           </div>
         </div>
-        <Icon 
-          name={isExpanded ? "ChevronUp" : "ChevronDown"} 
-          size={20} 
-          className="text-text-secondary" 
+        <Icon
+          name={isExpanded ? "ChevronUp" : "ChevronDown"}
+          size={20}
+          className="text-text-secondary"
         />
       </button>
 
       {isExpanded && (
-        <div className="px-4 pb-4 space-y-6">
+        <div className="px-4 pb-4 gap-y-6">
           {/* Translation Language */}
-          <div className="space-y-3">
+          <div className="gap-y-3">
             <h4 className="text-sm font-heading font-medium text-text-primary">
               Translation Language
             </h4>
             <p className="text-xs text-text-secondary">
               Choose the language for Quran verse translations
             </p>
-            
+
             <div className="grid grid-cols-1 gap-2">
               {supportedLanguages.map((language) => (
                 <button
@@ -77,11 +86,12 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
                   onClick={() => handleTranslationLanguageChange(language.id)}
                   className={`w-full p-3 rounded-lg border transition-colors duration-200 text-left ${
                     translationLanguage === language.id
-                      ? 'border-primary bg-primary-50' :'border-border bg-background hover:bg-surface-hover'
+                      ? "border-primary bg-primary-50"
+                      : "border-border bg-background hover:bg-surface-hover"
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center gap-x-3">
                       <span className="text-lg">{language.flag}</span>
                       <div>
                         <p className="text-sm font-medium text-text-primary">
@@ -102,14 +112,14 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
           </div>
 
           {/* Interface Language */}
-          <div className="space-y-3">
+          <div className="gap-y-3">
             <h4 className="text-sm font-heading font-medium text-text-primary">
               Interface Language
             </h4>
             <p className="text-xs text-text-secondary">
               Choose the language for app interface and navigation
             </p>
-            
+
             <div className="grid grid-cols-2 gap-2">
               {supportedLanguages.slice(0, 6).map((language) => (
                 <button
@@ -117,11 +127,12 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
                   onClick={() => handleInterfaceLanguageChange(language.id)}
                   className={`p-3 rounded-lg border transition-colors duration-200 text-left ${
                     interfaceLanguage === language.id
-                      ? 'border-primary bg-primary-50' :'border-border bg-background hover:bg-surface-hover'
+                      ? "border-primary bg-primary-50"
+                      : "border-border bg-background hover:bg-surface-hover"
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center gap-x-2">
                       <span className="text-sm">{language.flag}</span>
                       <div>
                         <p className="text-xs font-medium text-text-primary">
@@ -139,14 +150,18 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
           </div>
 
           {/* RTL Layout */}
-          <div className="space-y-3">
+          <div className="gap-y-3">
             <h4 className="text-sm font-heading font-medium text-text-primary">
               Layout Direction
             </h4>
-            <div className="space-y-3">
+            <div className="gap-y-3">
               <div className="flex items-center justify-between p-3 bg-background rounded-lg border border-border">
-                <div className="flex items-center space-x-3">
-                  <Icon name="AlignRight" size={18} className="text-text-secondary" />
+                <div className="flex items-center gap-x-3">
+                  <Icon
+                    name="AlignRight"
+                    size={18}
+                    className="text-text-secondary"
+                  />
                   <div>
                     <p className="text-sm font-medium text-text-primary">
                       Right-to-Left (RTL) Layout
@@ -159,13 +174,13 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
                 <button
                   onClick={handleRtlToggle}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 ${
-                    rtlLayout ? 'bg-primary' : 'bg-border-medium'
+                    rtlLayout ? "bg-primary" : "bg-border-medium"
                   }`}
                   aria-label="Toggle RTL layout"
                 >
                   <span
                     className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ${
-                      rtlLayout ? 'translate-x-6' : 'translate-x-1'
+                      rtlLayout ? "translate-x-6" : "translate-x-1"
                     }`}
                   />
                 </button>
@@ -174,14 +189,19 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
           </div>
 
           {/* Preview Section */}
-          <div className="space-y-3">
+          <div className="gap-y-3">
             <h4 className="text-sm font-heading font-medium text-text-primary">
               Preview
             </h4>
             <div className="p-4 bg-background rounded-lg border border-border">
-              <div className={`space-y-3 ${rtlLayout ? 'text-right' : 'text-left'}`}>
+              <div
+                className={`gap-y-3 ${rtlLayout ? "text-right" : "text-left"}`}
+              >
                 <div className="pb-2 border-b border-border">
-                  <p className="text-lg text-text-primary" style={{ direction: 'rtl' }}>
+                  <p
+                    className="text-lg text-text-primary"
+                    style={{ direction: "rtl" }}
+                  >
                     بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                   </p>
                 </div>
@@ -190,11 +210,15 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
                     Translation ({selectedTranslationLang?.name}):
                   </p>
                   <p className="text-sm text-text-primary">
-                    {translationLanguage === 'urdu' ?'اللہ کے نام سے جو بہت مہربان، نہایت رحم والا ہے'
-                      : translationLanguage === 'french' ?'Au nom d\'Allah, le Tout Miséricordieux, le Très Miséricordieux'
-                      : translationLanguage === 'indonesian' ?'Dengan nama Allah Yang Maha Pengasih, Maha Penyayang'
-                      : translationLanguage === 'turkish' ?'Rahman ve Rahim olan Allah\'ın adıyla' :'In the name of Allah, the Entirely Merciful, the Especially Merciful'
-                    }
+                    {translationLanguage === "urdu"
+                      ? "اللہ کے نام سے جو بہت مہربان، نہایت رحم والا ہے"
+                      : translationLanguage === "french"
+                      ? "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux"
+                      : translationLanguage === "indonesian"
+                      ? "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang"
+                      : translationLanguage === "turkish"
+                      ? "Rahman ve Rahim olan Allah'ın adıyla"
+                      : "In the name of Allah, the Entirely Merciful, the Especially Merciful"}
                   </p>
                 </div>
               </div>
@@ -206,10 +230,19 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
             <h5 className="text-sm font-heading font-medium text-text-primary mb-2">
               Current Language Configuration
             </h5>
-            <div className="space-y-1 text-xs text-text-secondary">
-              <p><span className="font-medium">Translation:</span> {selectedTranslationLang?.name}</p>
-              <p><span className="font-medium">Interface:</span> {selectedInterfaceLang?.name}</p>
-              <p><span className="font-medium">Layout:</span> {rtlLayout ? 'Right-to-Left' : 'Left-to-Right'}</p>
+            <div className="gap-y-1 text-xs text-text-secondary">
+              <p>
+                <span className="font-medium">Translation:</span>{" "}
+                {selectedTranslationLang?.name}
+              </p>
+              <p>
+                <span className="font-medium">Interface:</span>{" "}
+                {selectedInterfaceLang?.name}
+              </p>
+              <p>
+                <span className="font-medium">Layout:</span>{" "}
+                {rtlLayout ? "Right-to-Left" : "Left-to-Right"}
+              </p>
             </div>
           </div>
         </div>

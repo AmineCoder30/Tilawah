@@ -1,13 +1,19 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
-import Button from '../../../components/ui/Button';
+import Button from "../../../components/ui/Button";
 
-const SurahHeader = ({ surah, currentAyah, totalAyahs, onBookmark, isBookmarked }) => {
+const SurahHeader = ({
+  surah,
+  currentAyah,
+  totalAyahs,
+  onBookmark,
+  isBookmarked,
+}) => {
   const navigate = useNavigate();
 
   const handleBackNavigation = () => {
-    navigate('/surah-listing');
+    navigate("/surah-listing");
   };
 
   const handleShare = () => {
@@ -27,7 +33,7 @@ const SurahHeader = ({ surah, currentAyah, totalAyahs, onBookmark, isBookmarked 
       <div className="px-4 lg:px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Left Section - Back Button & Surah Info */}
-          <div className="flex items-center space-x-3 flex-1 min-w-0">
+          <div className="flex items-center gap-x-3 flex-1 min-w-0">
             <Button
               variant="ghost"
               onClick={handleBackNavigation}
@@ -35,9 +41,9 @@ const SurahHeader = ({ surah, currentAyah, totalAyahs, onBookmark, isBookmarked 
               className="flex-shrink-0"
               aria-label="Back to Surah listing"
             />
-            
+
             <div className="min-w-0 flex-1">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-x-2">
                 <h1 className="text-lg lg:text-xl font-heading font-semibold text-text-primary truncate">
                   {surah.name}
                 </h1>
@@ -45,7 +51,7 @@ const SurahHeader = ({ surah, currentAyah, totalAyahs, onBookmark, isBookmarked 
                   {surah.number}
                 </span>
               </div>
-              <div className="flex items-center space-x-2 text-sm text-text-secondary">
+              <div className="flex items-center gap-x-2 text-sm text-text-secondary">
                 <span className="font-caption">{surah.englishName}</span>
                 <span>•</span>
                 <span className="font-caption">{surah.revelationType}</span>
@@ -56,9 +62,9 @@ const SurahHeader = ({ surah, currentAyah, totalAyahs, onBookmark, isBookmarked 
           </div>
 
           {/* Right Section - Actions */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-x-2">
             {/* Progress Indicator */}
-            <div className="hidden sm:flex items-center space-x-2 text-sm text-text-secondary">
+            <div className="hidden sm:flex items-center gap-x-2 text-sm text-text-secondary">
               <span className="font-data">{currentAyah}</span>
               <span>/</span>
               <span className="font-data">{totalAyahs}</span>
@@ -88,7 +94,9 @@ const SurahHeader = ({ surah, currentAyah, totalAyahs, onBookmark, isBookmarked 
         <div className="sm:hidden mt-3">
           <div className="flex items-center justify-between text-xs text-text-secondary mb-2">
             <span className="font-caption">Progress</span>
-            <span className="font-data">{currentAyah} / {totalAyahs}</span>
+            <span className="font-data">
+              {currentAyah} / {totalAyahs}
+            </span>
           </div>
           <div className="w-full h-1 bg-surface rounded-full">
             <div

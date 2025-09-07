@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
 const AyahDisplay = ({ ayah, surahName, showTranslation = true }) => {
   if (!ayah) return null;
 
   return (
-    <div className="text-center space-y-4 max-w-2xl mx-auto">
+    <div className="text-center gap-y-4 max-w-2xl mx-auto">
       {/* Surah and Ayah Reference */}
       <div className="text-sm text-text-secondary font-caption">
         <span>{surahName}</span>
@@ -14,7 +14,7 @@ const AyahDisplay = ({ ayah, surahName, showTranslation = true }) => {
 
       {/* Arabic Text */}
       <div className="bg-surface rounded-lg p-6 lg:p-8">
-        <p 
+        <p
           className="text-2xl lg:text-3xl leading-relaxed text-text-primary font-arabic text-right"
           dir="rtl"
           lang="ar"

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Icon from '../../../components/AppIcon';
+import React, { useState } from "react";
+import Icon from "../../../components/AppIcon";
 
 const AlphabeticalJump = ({ surahs, onJumpToSurah, isMobile }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -81,7 +81,7 @@ const AlphabeticalJump = ({ surahs, onJumpToSurah, isMobile }) => {
   // Desktop Sidebar
   return (
     <div className="fixed right-4 top-1/2 transform -translate-y-1/2 z-100 bg-background border border-border rounded-lg shadow-gentle-lg p-2">
-      <div className="flex flex-col space-y-1">
+      <div className="flex flex-col gap-y-1">
         {letters.map((letter) => (
           <button
             key={letter}

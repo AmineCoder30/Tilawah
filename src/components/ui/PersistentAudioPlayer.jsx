@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Icon from "../AppIcon";
-import { useAudioPlayer } from "contexts/AudioPlayerContext";
-import { set } from "date-fns";
-import { current } from "@reduxjs/toolkit";
+import { useAudioPlayer } from "../../contexts/AudioPlayerContext";
 
 const PersistentAudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -177,7 +175,7 @@ const PersistentAudioPlayer = () => {
             </div>
 
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3 flex-1 min-w-0">
+              <div className="flex items-center gap-x-3 flex-1 min-w-0">
                 <button
                   onClick={() => setIsExpanded(true)}
                   className="flex-shrink-0"
@@ -194,7 +192,7 @@ const PersistentAudioPlayer = () => {
 
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium text-text-primary truncate">
-                    {currentSurah} - Ayah {currentAyah}
+                    {currentSurah}
                   </p>
                   <p className="text-xs text-text-secondary truncate">
                     {currentReciter.name}
@@ -202,7 +200,7 @@ const PersistentAudioPlayer = () => {
                 </div>
               </div>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-x-2">
                 <button
                   onClick={skipPrevious}
                   className="p-2 hover:bg-surface-hover rounded-lg transition-colors duration-200"
@@ -256,7 +254,7 @@ const PersistentAudioPlayer = () => {
         <div className="hidden lg:block fixed top-16 right-4 z-200 w-80 bg-background border border-border rounded-lg shadow-gentle-lg">
           <div className="p-4">
             <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center space-x-3 flex-1 min-w-0">
+              <div className="flex items-center gap-x-3 flex-1 min-w-0">
                 <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
                   <Icon
                     name="Music"
@@ -304,7 +302,7 @@ const PersistentAudioPlayer = () => {
                 {formatTime(currentTime)}
               </span>
 
-              <div className="flex items-center space-x-1">
+              <div className="flex items-center gap-x-1">
                 <button
                   onClick={skipPrevious}
                   className="p-1 hover:bg-surface-hover rounded transition-colors duration-200"
@@ -431,7 +429,7 @@ const PersistentAudioPlayer = () => {
               </div>
 
               {/* Controls */}
-              <div className="flex items-center justify-center space-x-4 mb-6">
+              <div className="flex items-center justify-center gap-x-4 mb-6">
                 <button
                   onClick={skipPrevious}
                   className="p-3 hover:bg-surface-hover rounded-full transition-colors duration-200"
@@ -479,9 +477,9 @@ const PersistentAudioPlayer = () => {
               </div>
 
               {/* Additional Controls */}
-              <div className="space-y-4">
+              <div className="gap-y-4">
                 {/* Volume */}
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center gap-x-3">
                   <button
                     onClick={toggleMute}
                     className="p-2 hover:bg-surface-hover rounded-lg transition-colors duration-200"

@@ -1,7 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import Icon from "../../../components/AppIcon";
+import Button from "../../../components/ui/Button";
 
 const AyahResultCard = ({ ayah, searchQuery }) => {
   const navigate = useNavigate();
@@ -12,21 +12,28 @@ const AyahResultCard = ({ ayah, searchQuery }) => {
 
   const handlePlayClick = (e) => {
     e.stopPropagation();
-    navigate(`/audio-player-interface?surah=${ayah.surahId}&ayah=${ayah.number}`);
+    navigate(
+      `/audio-player-interface?surah=${ayah.surahId}&ayah=${ayah.number}`
+    );
   };
 
   const highlightText = (text, query) => {
     if (!query) return text;
-    
-    const regex = new RegExp(`(${query})`, 'gi');
+
+    const regex = new RegExp(`(${query})`, "gi");
     const parts = text.split(regex);
-    
-    return parts.map((part, index) => 
+
+    return parts.map((part, index) =>
       regex.test(part) ? (
-        <mark key={index} className="bg-accent-100 text-accent-800 px-1 rounded">
+        <mark
+          key={index}
+          className="bg-accent-100 text-accent-800 px-1 rounded"
+        >
           {part}
         </mark>
-      ) : part
+      ) : (
+        part
+      )
     );
   };
 
@@ -37,7 +44,7 @@ const AyahResultCard = ({ ayah, searchQuery }) => {
     >
       {/* Header with Surah Reference */}
       <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-x-2">
           <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center">
             <Icon name="FileText" size={14} className="text-primary" />
           </div>
@@ -50,7 +57,7 @@ const AyahResultCard = ({ ayah, searchQuery }) => {
             </p>
           </div>
         </div>
-        
+
         <Button
           variant="ghost"
           onClick={handlePlayClick}
@@ -62,10 +69,10 @@ const AyahResultCard = ({ ayah, searchQuery }) => {
 
       {/* Arabic Text */}
       <div className="mb-3 p-3 bg-background rounded-lg border border-border">
-        <p 
+        <p
           className="text-lg leading-relaxed text-text-primary font-arabic"
           dir="rtl"
-          style={{ fontFamily: 'Amiri, serif' }}
+          style={{ fontFamily: "Amiri, serif" }}
         >
           {highlightText(ayah.arabicText, searchQuery)}
         </p>
@@ -80,20 +87,20 @@ const AyahResultCard = ({ ayah, searchQuery }) => {
 
       {/* Match Information */}
       <div className="flex items-center justify-between text-xs text-text-secondary">
-        <div className="flex items-center space-x-3">
-          <div className="flex items-center space-x-1">
+        <div className="flex items-center gap-x-3">
+          <div className="flex items-center gap-x-1">
             <Icon name="Search" size={12} />
             <span>Match in {ayah.matchType}</span>
           </div>
           {ayah.relevanceScore && (
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center gap-x-1">
               <Icon name="TrendingUp" size={12} />
               <span>{Math.round(ayah.relevanceScore * 100)}% relevant</span>
             </div>
           )}
         </div>
-        
-        <div className="flex items-center space-x-2">
+
+        <div className="flex items-center gap-x-2">
           <button
             onClick={(e) => {
               e.stopPropagation();

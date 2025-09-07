@@ -1,29 +1,29 @@
-import React, { useState } from 'react';
-import Icon from '../../../components/AppIcon';
-import Input from '../../../components/ui/Input';
-import Button from '../../../components/ui/Button';
+import React, { useState } from "react";
+import Icon from "../../../components/AppIcon";
+import Input from "../../../components/ui/Input";
+import Button from "../../../components/ui/Button";
 
-const FilterBar = ({ 
-  searchQuery, 
-  onSearchChange, 
-  ayahRange, 
-  onAyahRangeChange, 
-  selectedRiwayah, 
+const FilterBar = ({
+  searchQuery,
+  onSearchChange,
+  ayahRange,
+  onAyahRangeChange,
+  selectedRiwayah,
   onRiwayahChange,
   activeFilters,
   onClearFilter,
   resultCount,
   isExpanded,
-  onToggleExpanded
+  onToggleExpanded,
 }) => {
   const [localAyahRange, setLocalAyahRange] = useState(ayahRange);
 
   const riwayahOptions = [
-    { value: 'all', label: 'All Riwayat' },
-    { value: 'hafs', label: 'Hafs an Asim' },
-    { value: 'warsh', label: 'Warsh an Nafi' },
-    { value: 'qalun', label: 'Qalun an Nafi' },
-    { value: 'duri', label: 'Ad-Duri an Abi Amr' }
+    { value: "all", label: "All Riwayat" },
+    { value: "hafs", label: "Hafs an Asim" },
+    { value: "warsh", label: "Warsh an Nafi" },
+    { value: "qalun", label: "Qalun an Nafi" },
+    { value: "duri", label: "Ad-Duri an Abi Amr" },
   ];
 
   const handleAyahRangeChange = (type, value) => {
@@ -55,7 +55,7 @@ const FilterBar = ({
             aria-label="Toggle filters"
           >
             <Icon
-              name={isExpanded ? 'ChevronUp' : 'SlidersHorizontal'}
+              name={isExpanded ? "ChevronUp" : "SlidersHorizontal"}
               size={18}
               className="text-text-secondary"
             />
@@ -64,21 +64,23 @@ const FilterBar = ({
 
         {/* Expanded Filters */}
         {isExpanded && (
-          <div className="space-y-4 animate-fade-in">
+          <div className="gap-y-4 animate-fade-in">
             {/* Ayah Count Range */}
-            <div className="space-y-2">
+            <div className="gap-y-2">
               <label className="text-sm font-heading font-medium text-text-primary">
                 Ayah Count Range
               </label>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-x-4">
+                <div className="flex items-center gap-x-2">
                   <span className="text-xs text-text-secondary">Min:</span>
                   <Input
                     type="number"
                     min="1"
                     max="286"
                     value={localAyahRange.min}
-                    onChange={(e) => handleAyahRangeChange('min', e.target.value)}
+                    onChange={(e) =>
+                      handleAyahRangeChange("min", e.target.value)
+                    }
                     className="w-16 text-center"
                   />
                 </div>
@@ -88,19 +90,24 @@ const FilterBar = ({
                       className="h-full bg-primary rounded-full"
                       style={{
                         marginLeft: `${(localAyahRange.min / 286) * 100}%`,
-                        width: `${((localAyahRange.max - localAyahRange.min) / 286) * 100}%`
+                        width: `${
+                          ((localAyahRange.max - localAyahRange.min) / 286) *
+                          100
+                        }%`,
                       }}
                     />
                   </div>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-x-2">
                   <span className="text-xs text-text-secondary">Max:</span>
                   <Input
                     type="number"
                     min="1"
                     max="286"
                     value={localAyahRange.max}
-                    onChange={(e) => handleAyahRangeChange('max', e.target.value)}
+                    onChange={(e) =>
+                      handleAyahRangeChange("max", e.target.value)
+                    }
                     className="w-16 text-center"
                   />
                 </div>
@@ -108,7 +115,7 @@ const FilterBar = ({
             </div>
 
             {/* Riwayah Selection */}
-            <div className="space-y-2">
+            <div className="gap-y-2">
               <label className="text-sm font-heading font-medium text-text-primary">
                 Recitation Method (Riwayah)
               </label>
@@ -119,8 +126,8 @@ const FilterBar = ({
                     onClick={() => onRiwayahChange(option.value)}
                     className={`px-3 py-2 rounded-lg text-sm font-caption transition-colors duration-200 ${
                       selectedRiwayah === option.value
-                        ? 'bg-primary text-primary-foreground'
-                        : 'bg-surface text-text-secondary hover:text-text-primary hover:bg-surface-hover'
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-surface text-text-secondary hover:text-text-primary hover:bg-surface-hover"
                     }`}
                   >
                     {option.label}
@@ -133,13 +140,13 @@ const FilterBar = ({
 
         {/* Active Filters & Results */}
         <div className="flex items-center justify-between mt-4">
-          <div className="flex items-center space-x-2 flex-wrap">
+          <div className="flex items-center gap-x-2 flex-wrap">
             {activeFilters.length > 0 && (
               <>
                 {activeFilters.map((filter, index) => (
                   <div
                     key={index}
-                    className="flex items-center space-x-1 bg-primary-50 text-primary px-2 py-1 rounded-full text-xs"
+                    className="flex items-center gap-x-1 bg-primary-50 text-primary px-2 py-1 rounded-full text-xs"
                   >
                     <span>{filter.label}</span>
                     <button
@@ -154,7 +161,7 @@ const FilterBar = ({
                 <Button
                   variant="ghost"
                   size="xs"
-                  onClick={() => onClearFilter('all')}
+                  onClick={() => onClearFilter("all")}
                   className="text-text-secondary hover:text-text-primary"
                 >
                   Clear all

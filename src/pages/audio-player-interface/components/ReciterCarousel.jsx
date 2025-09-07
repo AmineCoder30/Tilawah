@@ -1,42 +1,50 @@
-import React, { useRef, useEffect } from 'react';
-import Icon from '../../../components/AppIcon';
-import Button from '../../../components/ui/Button';
-import ReciterCard from './ReciterCard';
+import React, { useRef, useEffect } from "react";
+import Icon from "../../../components/AppIcon";
+import Button from "../../../components/ui/Button";
+import ReciterCard from "./ReciterCard";
 
-const ReciterCarousel = ({ 
-  reciters, 
-  selectedReciter, 
-  onReciterSelect, 
-  riwayahFilter 
+const ReciterCarousel = ({
+  reciters,
+  selectedReciter,
+  onReciterSelect,
+  riwayahFilter,
 }) => {
   const scrollRef = useRef(null);
 
   const scrollLeft = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+      scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
     }
   };
 
   const scrollRight = () => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+      scrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
     }
   };
 
   // Auto-scroll to selected reciter
   useEffect(() => {
     if (selectedReciter && scrollRef.current) {
-      const selectedIndex = reciters.findIndex(r => r.id === selectedReciter.id);
+      const selectedIndex = reciters.findIndex(
+        (r) => r.id === selectedReciter.id
+      );
       if (selectedIndex !== -1) {
         const cardWidth = 112; // w-28 = 112px
-        const scrollPosition = selectedIndex * cardWidth - (scrollRef.current.clientWidth / 2) + (cardWidth / 2);
-        scrollRef.current.scrollTo({ left: scrollPosition, behavior: 'smooth' });
+        const scrollPosition =
+          selectedIndex * cardWidth -
+          scrollRef.current.clientWidth / 2 +
+          cardWidth / 2;
+        scrollRef.current.scrollTo({
+          left: scrollPosition,
+          behavior: "smooth",
+        });
       }
     }
   }, [selectedReciter, reciters]);
 
-  const filteredReciters = reciters.filter(reciter => 
-    !riwayahFilter || reciter.riwayah.includes(riwayahFilter)
+  const filteredReciters = reciters.filter(
+    (reciter) => !riwayahFilter || reciter.riwayah.includes(riwayahFilter)
   );
 
   return (
@@ -68,8 +76,8 @@ const ReciterCarousel = ({
         {/* Reciters Scroll Container */}
         <div
           ref={scrollRef}
-          className="flex space-x-3 overflow-x-auto scrollbar-hide px-8 py-2"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex gap-x-3 overflow-x-auto scrollbar-hide px-8 py-2"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {filteredReciters.map((reciter) => (
             <ReciterCard
