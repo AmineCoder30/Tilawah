@@ -1,46 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 import Icon from "../../../components/AppIcon";
 import { useTheme } from "../../../contexts/ThemeContext";
+import { useDisplaySettings } from "../../../contexts/SettingsContext";
+import { FONT_OPTIONS, NUMERAL_SYSTEMS } from "../../../contexts/settingsUtils";
 
 const DisplayPreferences = ({ isExpanded, onToggle }) => {
   const { isDarkMode, toggleTheme } = useTheme();
-  const [selectedFont, setSelectedFont] = useState("noto-sans-arabic");
-  const [textSize, setTextSize] = useState(16);
-  const [numeralSystem, setNumeralSystem] = useState("western");
-
-  const arabicFonts = [
-    {
-      id: "noto-sans-arabic",
-      name: "Noto Sans Arabic",
-      sample: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-    },
-    {
-      id: "amiri",
-      name: "Amiri",
-      sample: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-    },
-    {
-      id: "scheherazade",
-      name: "Scheherazade",
-      sample: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-    },
-    {
-      id: "uthmanic",
-      name: "Uthmanic Hafs",
-      sample: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-    },
-  ];
+  const { selectedFont, textSize, numeralSystem, updateDisplaySetting } =
+    useDisplaySettings();
 
   const handleFontChange = (fontId) => {
-    setSelectedFont(fontId);
+    updateDisplaySetting("selectedFont", fontId);
   };
 
   const handleTextSizeChange = (e) => {
-    setTextSize(parseInt(e.target.value));
+    updateDisplaySetting("textSize", parseInt(e.target.value));
   };
 
   const handleNumeralSystemChange = (system) => {
-    setNumeralSystem(system);
+    updateDisplaySetting("numeralSystem", system);
   };
 
   return (
@@ -73,8 +51,8 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
       {isExpanded && (
         <div className="px-4 pb-4 gap-y-6">
           {/* Theme Toggle - Now connected to global theme context */}
-          <div className="gap-y-3">
-            <h4 className="text-sm font-heading font-medium text-text-primary">
+          <div className="mt-3">
+            <h4 className="text-sm mb-2 font-heading font-medium text-text-primary">
               Theme
             </h4>
             <div className="flex items-center justify-between p-3 bg-background rounded-lg border border-border">
@@ -112,12 +90,12 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
           </div>
 
           {/* Arabic Font Selection */}
-          <div className="gap-y-3">
-            <h4 className="text-sm font-heading font-medium text-text-primary">
+          <div className="mt-3">
+            <h4 className="text-sm mb-2 font-heading font-medium text-text-primary">
               Arabic Font
             </h4>
-            <div className="gap-y-2">
-              {arabicFonts.map((font) => (
+            <div className="flex flex-col gap-y-2">
+              {FONT_OPTIONS.map((font) => (
                 <button
                   key={font.id}
                   onClick={() => handleFontChange(font.id)}
@@ -136,7 +114,7 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
                     )}
                   </div>
                   <p
-                    className="text-lg text-text-primary"
+                    className={"text-lg text-text-primary " + font.id}
                     style={{ fontSize: `${textSize}px`, direction: "rtl" }}
                   >
                     {font.sample}
@@ -147,9 +125,9 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
           </div>
 
           {/* Text Size */}
-          <div className="gap-y-3">
+          <div className="mt-3">
             <div className="flex items-center justify-between">
-              <h4 className="text-sm font-heading font-medium text-text-primary">
+              <h4 className="text-sm mb-2 font-heading font-medium text-text-primary">
                 Text Size
               </h4>
               <span className="text-sm text-text-secondary font-data">
@@ -190,48 +168,34 @@ const DisplayPreferences = ({ isExpanded, onToggle }) => {
           </div>
 
           {/* Numeral System */}
-          <div className="gap-y-3">
-            <h4 className="text-sm font-heading font-medium text-text-primary">
+          <div className="mt-3">
+            <h4 className="text-sm mb-2 font-heading font-medium text-text-primary">
               Numeral System
             </h4>
             <div className="grid grid-cols-2 gap-3">
-              <button
-                onClick={() => handleNumeralSystemChange("western")}
-                className={`p-3 rounded-lg border transition-colors duration-200 ${
-                  numeralSystem === "western"
-                    ? "border-primary bg-primary-50"
-                    : "border-border bg-background hover:bg-surface-hover"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-text-primary">
-                    Western
-                  </span>
-                  {numeralSystem === "western" && (
-                    <Icon name="Check" size={16} className="text-primary" />
-                  )}
-                </div>
-                <p className="text-lg text-text-primary font-data">1 2 3 4 5</p>
-              </button>
-
-              <button
-                onClick={() => handleNumeralSystemChange("arabic-indic")}
-                className={`p-3 rounded-lg border transition-colors duration-200 ${
-                  numeralSystem === "arabic-indic"
-                    ? "border-primary bg-primary-50"
-                    : "border-border bg-background hover:bg-surface-hover"
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm font-medium text-text-primary">
-                    Arabic-Indic
-                  </span>
-                  {numeralSystem === "arabic-indic" && (
-                    <Icon name="Check" size={16} className="text-primary" />
-                  )}
-                </div>
-                <p className="text-lg text-text-primary font-data">١ ٢ ٣ ٤ ٥</p>
-              </button>
+              {NUMERAL_SYSTEMS.map((system) => (
+                <button
+                  key={system.id}
+                  onClick={() => handleNumeralSystemChange(system.id)}
+                  className={`p-3 rounded-lg border transition-colors duration-200 ${
+                    numeralSystem === system.id
+                      ? "border-primary bg-primary-50"
+                      : "border-border bg-background hover:bg-surface-hover"
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm font-medium text-text-primary">
+                      {system.name}
+                    </span>
+                    {numeralSystem === system.id && (
+                      <Icon name="Check" size={16} className="text-primary" />
+                    )}
+                  </div>
+                  <p className="text-lg text-text-primary font-data">
+                    {system.sample}
+                  </p>
+                </button>
+              ))}
             </div>
           </div>
         </div>

@@ -63,7 +63,7 @@ const SurahInfoSidebar = ({
   ];
   console.log("Surah Info Sidebar - Surah Data:", surah);
   return (
-    <div className="hidden lg:block w-80 bg-surface border-r border-border h-screen sticky top-32 overflow-y-auto">
+    <div className="hidden lg:block w-80  bg-surface border-r border-border h-screen sticky top-32 overflow-y-auto">
       <div className="p-6">
         {/* Surah Header */}
         <div className="text-center mb-6">

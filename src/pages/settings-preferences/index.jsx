@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "../../components/AppIcon";
 import Button from "../../components/ui/Button";
+import { useSettings } from "../../contexts/SettingsContext";
 import DisplayPreferences from "./components/DisplayPreferences";
 import AudioSettings from "./components/AudioSettings";
 import LanguageLocalization from "./components/LanguageLocalization";
@@ -9,6 +10,7 @@ import DataManagement from "./components/DataManagement";
 
 const SettingsPreferences = () => {
   const navigate = useNavigate();
+  const { hasUnsavedChanges, saveSettings } = useSettings();
 
   const [expandedSections, setExpandedSections] = useState({
     display: false,
@@ -16,7 +18,6 @@ const SettingsPreferences = () => {
     language: false,
     data: false,
   });
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const handleBack = () => {
     if (hasUnsavedChanges) {
@@ -29,9 +30,11 @@ const SettingsPreferences = () => {
   };
 
   const handleSave = () => {
-    // In real app, this would save settings to backend/localStorage
-    setHasUnsavedChanges(false);
-    // Show success feedback
+    const success = saveSettings();
+    if (success) {
+      // Show success feedback in a real app
+      console.log("Settings saved successfully");
+    }
   };
 
   const toggleSection = (section) => {
@@ -180,7 +183,7 @@ const SettingsPreferences = () => {
         </div>
 
         {/* Settings Sections */}
-        <div className="gap-y-4">
+        <div className=" flex flex-col gap-y-4">
           <h2 className="text-lg font-heading font-semibold text-text-primary lg:hidden">
             All Settings
           </h2>

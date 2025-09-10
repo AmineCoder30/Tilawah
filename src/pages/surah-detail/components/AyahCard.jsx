@@ -1,6 +1,10 @@
 import React, { useState, useRef } from "react";
 import Icon from "../../../components/AppIcon";
 import Button from "../../../components/ui/Button";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
+import { useDisplaySettings } from "../../../contexts/SettingsContext";
 
 const AyahCard = ({
   ayah,
@@ -10,12 +14,14 @@ const AyahCard = ({
   onPlayPause,
   onBookmark,
   isBookmarked,
+  ayahTranslation,
   showArabicNumbers = false,
-  fontSize = "base",
+  onShowTranslation,
 }) => {
-  const [showTranslation, setShowTranslation] = useState(true);
+  const [showTranslation, setShowTranslation] = useState(false);
   const [showTransliteration, setShowTransliteration] = useState(false);
   const cardRef = useRef(null);
+  const { textSize, selectedFont } = useDisplaySettings();
 
   const handleShare = () => {
     const text = `${ayah.text}\n\n${ayah.translation}\n\n- Quran ${ayah.surah}:${ayah.number}`;
@@ -36,23 +42,7 @@ const AyahCard = ({
     navigator.clipboard.writeText(text);
   };
 
-  const getFontSizeClass = () => {
-    const sizeMap = {
-      sm: "text-lg lg:text-xl",
-      base: "text-xl lg:text-2xl",
-      lg: "text-2xl lg:text-3xl",
-      xl: "text-3xl lg:text-4xl",
-    };
-    return sizeMap[fontSize] || sizeMap["base"];
-  };
-
-  const formatAyahNumber = (number) => {
-    if (showArabicNumbers) {
-      // Convert to Arabic-Indic numerals
-      return number.toString().replace(/\d/g, (d) => "٠١٢٣٤٥٦٧٨٩"[d]);
-    }
-    return number.toString();
-  };
+  // Font size for Arabic text is now controlled by settings (textSize)
 
   return (
     <div
@@ -75,14 +65,14 @@ const AyahCard = ({
           </div>
 
           {/* Play Button */}
-          <Button
+          {/* <Button
             variant={isPlaying ? "primary" : "ghost"}
             onClick={onPlayPause}
             disabled={isLoading}
             iconName={isLoading ? "Loader2" : isPlaying ? "Pause" : "Play"}
             className={isLoading ? "animate-spin" : ""}
             aria-label={isPlaying ? "Pause ayah" : "Play ayah"}
-          />
+          /> */}
         </div>
 
         {/* Action Buttons */}
@@ -116,7 +106,8 @@ const AyahCard = ({
       {/* Arabic Text */}
       <div className="mb-4" dir="rtl">
         <p
-          className={`${getFontSizeClass()} leading-relaxed text-text-primary font-arabic text-right`}
+          className={`leading-relaxed text-text-primary text-right ${selectedFont}`}
+          style={{ fontSize: textSize }}
         >
           {ayah.text}
         </p>
@@ -125,7 +116,10 @@ const AyahCard = ({
       {/* Translation Toggle */}
       <div className="flex items-center gap-x-4 mb-3">
         <button
-          onClick={() => setShowTranslation(!showTranslation)}
+          onClick={() => {
+            setShowTranslation(!showTranslation);
+            onShowTranslation();
+          }}
           className="flex items-center gap-x-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-200"
         >
           <Icon
@@ -134,39 +128,28 @@ const AyahCard = ({
           />
           <span className="font-caption">Translation</span>
         </button>
-
-        <button
-          onClick={() => setShowTransliteration(!showTransliteration)}
-          className="flex items-center gap-x-2 text-sm text-text-secondary hover:text-text-primary transition-colors duration-200"
-        >
-          <Icon
-            name={showTransliteration ? "ChevronDown" : "ChevronRight"}
-            size={16}
-          />
-          <span className="font-caption">Transliteration</span>
-        </button>
       </div>
 
-      {/* Translation */}
+      {/* Transliteration */}
       {showTranslation && (
         <div className="mb-3">
-          <p className="text-base lg:text-lg leading-relaxed text-text-primary">
-            {ayah.translation}
-          </p>
-        </div>
-      )}
-
-      {/* Transliteration */}
-      {showTransliteration && (
-        <div className="mb-3">
-          <p className="text-sm lg:text-base leading-relaxed text-text-secondary italic">
-            {ayah.transliteration}
+          <p
+            className="text-sm lg:text-base leading-relaxed text-text-secondary italic"
+            style={{ fontSize: textSize }}
+          >
+            {ayahTranslation || (
+              <SkeletonTheme baseColor="#202020" highlightColor="#444">
+                <p>
+                  <Skeleton />
+                </p>
+              </SkeletonTheme>
+            )}
           </p>
         </div>
       )}
 
       {/* Audio Progress Bar (when playing) */}
-      {isPlaying && (
+      {/* {isPlaying && (
         <div className="mt-4 pt-3 border-t border-border">
           <div className="flex items-center gap-x-3">
             <Icon name="Volume2" size={16} className="text-text-secondary" />
@@ -176,7 +159,7 @@ const AyahCard = ({
             <span className="text-xs text-text-secondary font-data">0:15</span>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

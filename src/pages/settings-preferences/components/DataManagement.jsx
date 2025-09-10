@@ -1,40 +1,39 @@
 import React, { useState } from "react";
 import Icon from "../../../components/AppIcon";
 import Button from "../../../components/ui/Button";
+import { useDataSettings, useSettings } from "../../../contexts/SettingsContext";
+import { downloadSettingsFile } from "../../../contexts/settingsUtils";
 
 const DataManagement = ({ isExpanded, onToggle }) => {
-  const [syncEnabled, setSyncEnabled] = useState(true);
-  const [offlineContent, setOfflineContent] = useState({
-    totalSize: "2.4 GB",
-    downloadedSurahs: 15,
-    totalSurahs: 114,
-  });
+  const {
+    syncEnabled,
+    offlineContent,
+    updateDataSetting
+  } = useDataSettings();
+  const { exportSettings, resetSettings } = useSettings();
+  
   const [showResetDialog, setShowResetDialog] = useState(false);
   const [isClearing, setIsClearing] = useState(false);
 
   const handleSyncToggle = () => {
-    setSyncEnabled(!syncEnabled);
+    updateDataSetting('syncEnabled', !syncEnabled);
   };
 
   const handleBackupFavorites = () => {
-    // In real app, this would create a backup file
-    const favorites = {
-      surahs: [1, 2, 18, 36, 55, 67, 112, 113, 114],
-      ayahs: ["2:255", "3:26-27", "17:110"],
-      lastPosition: { surah: 2, ayah: 45 },
-      exportDate: new Date().toISOString(),
-    };
-
-    const dataStr = JSON.stringify(favorites, null, 2);
-    const dataBlob = new Blob([dataStr], { type: "application/json" });
-    const url = URL.createObjectURL(dataBlob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `quran-favorites-${
-      new Date().toISOString().split("T")[0]
-    }.json`;
-    link.click();
-    URL.revokeObjectURL(url);
+    try {
+      const settingsData = exportSettings();
+      const result = downloadSettingsFile(
+        settingsData, 
+        `quran-reader-backup-${new Date().toISOString().split("T")[0]}.json`
+      );
+      
+      if (result.success) {
+        // Show success feedback in a real app
+        console.log('Settings backed up successfully');
+      }
+    } catch (error) {
+      console.error('Failed to backup settings:', error);
+    }
   };
 
   const handleClearCache = async () => {
@@ -49,10 +48,8 @@ const DataManagement = ({ isExpanded, onToggle }) => {
   };
 
   const confirmReset = () => {
-    // In real app, this would reset all settings to defaults
     setShowResetDialog(false);
-    // Reset all settings to defaults
-    setSyncEnabled(true);
+    resetSettings();
   };
 
   const cancelReset = () => {

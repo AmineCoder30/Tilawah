@@ -1,45 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 import Icon from "../../../components/AppIcon";
+import { useLanguageSettings } from "../../../contexts/SettingsContext";
+import {
+  SUPPORTED_LANGUAGES,
+  getLanguageById,
+  getTranslationSample,
+} from "../../../contexts/settingsUtils";
 
 const LanguageLocalization = ({ isExpanded, onToggle }) => {
-  const [translationLanguage, setTranslationLanguage] = useState("english");
-  const [interfaceLanguage, setInterfaceLanguage] = useState("english");
-  const [rtlLayout, setRtlLayout] = useState(true);
-
-  const supportedLanguages = [
-    { id: "english", name: "English", nativeName: "English", flag: "🇺🇸" },
-    { id: "urdu", name: "Urdu", nativeName: "اردو", flag: "🇵🇰" },
-    { id: "french", name: "French", nativeName: "Français", flag: "🇫🇷" },
-    {
-      id: "indonesian",
-      name: "Indonesian",
-      nativeName: "Bahasa Indonesia",
-      flag: "🇮🇩",
-    },
-    { id: "turkish", name: "Turkish", nativeName: "Türkçe", flag: "🇹🇷" },
-    { id: "arabic", name: "Arabic", nativeName: "العربية", flag: "🇸🇦" },
-    { id: "malay", name: "Malay", nativeName: "Bahasa Melayu", flag: "🇲🇾" },
-    { id: "bengali", name: "Bengali", nativeName: "বাংলা", flag: "🇧🇩" },
-  ];
+  const {
+    translationLanguage,
+    interfaceLanguage,
+    rtlLayout,
+    updateLanguageSetting,
+  } = useLanguageSettings();
 
   const handleTranslationLanguageChange = (languageId) => {
-    setTranslationLanguage(languageId);
+    updateLanguageSetting("translationLanguage", languageId);
   };
 
-  const handleInterfaceLanguageChange = (languageId) => {
-    setInterfaceLanguage(languageId);
-  };
+  // Use updateLanguageSetting from useLanguageSettings for interface language changes
 
   const handleRtlToggle = () => {
-    setRtlLayout(!rtlLayout);
+    updateLanguageSetting("rtlLayout", !rtlLayout);
   };
 
-  const selectedTranslationLang = supportedLanguages.find(
-    (l) => l.id === translationLanguage
-  );
-  const selectedInterfaceLang = supportedLanguages.find(
-    (l) => l.id === interfaceLanguage
-  );
+  const selectedTranslationLang = getLanguageById(translationLanguage);
+  const selectedInterfaceLang = getLanguageById(interfaceLanguage);
 
   return (
     <div className="bg-surface rounded-lg border border-border overflow-hidden">
@@ -80,7 +67,7 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
             </p>
 
             <div className="grid grid-cols-1 gap-2">
-              {supportedLanguages.map((language) => (
+              {SUPPORTED_LANGUAGES.map((language) => (
                 <button
                   key={`translation-${language.id}`}
                   onClick={() => handleTranslationLanguageChange(language.id)}
@@ -121,10 +108,12 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
             </p>
 
             <div className="grid grid-cols-2 gap-2">
-              {supportedLanguages.slice(0, 6).map((language) => (
+              {SUPPORTED_LANGUAGES.slice(0, 6).map((language) => (
                 <button
                   key={`interface-${language.id}`}
-                  onClick={() => handleInterfaceLanguageChange(language.id)}
+                  onClick={() =>
+                    updateLanguageSetting("interfaceLanguage", language.id)
+                  }
                   className={`p-3 rounded-lg border transition-colors duration-200 text-left ${
                     interfaceLanguage === language.id
                       ? "border-primary bg-primary-50"
@@ -210,15 +199,7 @@ const LanguageLocalization = ({ isExpanded, onToggle }) => {
                     Translation ({selectedTranslationLang?.name}):
                   </p>
                   <p className="text-sm text-text-primary">
-                    {translationLanguage === "urdu"
-                      ? "اللہ کے نام سے جو بہت مہربان، نہایت رحم والا ہے"
-                      : translationLanguage === "french"
-                      ? "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux"
-                      : translationLanguage === "indonesian"
-                      ? "Dengan nama Allah Yang Maha Pengasih, Maha Penyayang"
-                      : translationLanguage === "turkish"
-                      ? "Rahman ve Rahim olan Allah'ın adıyla"
-                      : "In the name of Allah, the Entirely Merciful, the Especially Merciful"}
+                    {getTranslationSample(translationLanguage)}
                   </p>
                 </div>
               </div>

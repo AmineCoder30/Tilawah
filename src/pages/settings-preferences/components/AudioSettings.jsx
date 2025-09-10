@@ -1,66 +1,40 @@
 import React, { useState } from "react";
 import Icon from "../../../components/AppIcon";
 import Button from "../../../components/ui/Button";
+import { useAudioSettings } from "../../../contexts/SettingsContext";
+import {
+  RECITERS,
+  RIWAYAH_METHODS,
+  PLAYBACK_SPEEDS,
+  getReciterById,
+  getRiwayahById,
+} from "../../../contexts/settingsUtils";
 
 const AudioSettings = ({ isExpanded, onToggle }) => {
-  const [selectedReciter, setSelectedReciter] = useState("abdul-basit");
-  const [selectedRiwayah, setSelectedRiwayah] = useState("hafs");
-  const [playbackSpeed, setPlaybackSpeed] = useState(1);
-  const [autoPlay, setAutoPlay] = useState(true);
+  const {
+    selectedReciter,
+    selectedRiwayah,
+    playbackSpeed,
+    autoPlay,
+    updateAudioSetting,
+  } = useAudioSettings();
+
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const reciters = [
-    { id: "abdul-basit", name: "Abdul Basit Abdul Samad", country: "Egypt" },
-    { id: "mishary", name: "Mishary Rashid Alafasy", country: "Kuwait" },
-    { id: "sudais", name: "Abdul Rahman Al-Sudais", country: "Saudi Arabia" },
-    { id: "husary", name: "Mahmoud Khalil Al-Husary", country: "Egypt" },
-    { id: "minshawi", name: "Mohamed Siddiq El-Minshawi", country: "Egypt" },
-    { id: "ajmi", name: "Ahmed ibn Ali al-Ajmi", country: "Saudi Arabia" },
-  ];
-
-  const riwayahMethods = [
-    {
-      id: "hafs",
-      name: "Hafs an Asim",
-      description: "Most common recitation method",
-      regions: "Middle East, South Asia, Africa",
-    },
-    {
-      id: "warsh",
-      name: "Warsh an Nafi",
-      description: "Common in North and West Africa",
-      regions: "Morocco, Algeria, Tunisia, West Africa",
-    },
-    {
-      id: "qalun",
-      name: "Qalun an Nafi",
-      description: "Alternative method from Nafi",
-      regions: "Libya, parts of North Africa",
-    },
-    {
-      id: "duri",
-      name: "Al-Duri an Abu Amr",
-      description: "Historical recitation method",
-      regions: "Parts of Middle East",
-    },
-  ];
-
-  const playbackSpeeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
-
   const handleReciterChange = (reciterId) => {
-    setSelectedReciter(reciterId);
+    updateAudioSetting("selectedReciter", reciterId);
   };
 
   const handleRiwayahChange = (riwayahId) => {
-    setSelectedRiwayah(riwayahId);
+    updateAudioSetting("selectedRiwayah", riwayahId);
   };
 
   const handlePlaybackSpeedChange = (speed) => {
-    setPlaybackSpeed(speed);
+    updateAudioSetting("playbackSpeed", speed);
   };
 
   const handleAutoPlayToggle = () => {
-    setAutoPlay(!autoPlay);
+    updateAudioSetting("autoPlay", !autoPlay);
   };
 
   const handlePreviewPlay = () => {
@@ -71,10 +45,8 @@ const AudioSettings = ({ isExpanded, onToggle }) => {
     }, 3000);
   };
 
-  const selectedReciterData = reciters.find((r) => r.id === selectedReciter);
-  const selectedRiwayahData = riwayahMethods.find(
-    (r) => r.id === selectedRiwayah
-  );
+  const selectedReciterData = getReciterById(selectedReciter);
+  const selectedRiwayahData = getRiwayahById(selectedRiwayah);
 
   return (
     <div className="bg-surface rounded-lg border border-border overflow-hidden">
@@ -106,9 +78,9 @@ const AudioSettings = ({ isExpanded, onToggle }) => {
       {isExpanded && (
         <div className="px-4 pb-4 gap-y-6">
           {/* Default Reciter */}
-          <div className="gap-y-3">
+          <div className="mt-3">
             <div className="flex items-center justify-between">
-              <h4 className="text-sm font-heading font-medium text-text-primary">
+              <h4 className="text-sm mb-2 font-heading font-medium text-text-primary">
                 Default Reciter
               </h4>
               <Button
@@ -124,7 +96,7 @@ const AudioSettings = ({ isExpanded, onToggle }) => {
             </div>
 
             <div className="gap-y-2">
-              {reciters.map((reciter) => (
+              {RECITERS.map((reciter) => (
                 <button
                   key={reciter.id}
                   onClick={() => handleReciterChange(reciter.id)}
@@ -153,12 +125,12 @@ const AudioSettings = ({ isExpanded, onToggle }) => {
           </div>
 
           {/* Riwayah Method */}
-          <div className="gap-y-3">
-            <h4 className="text-sm font-heading font-medium text-text-primary">
+          <div className="mt-3">
+            <h4 className="text-sm mb-2 font-heading font-medium text-text-primary">
               Recitation Method (Riwayah)
             </h4>
             <div className="gap-y-2">
-              {riwayahMethods.map((riwayah) => (
+              {RIWAYAH_METHODS.map((riwayah) => (
                 <button
                   key={riwayah.id}
                   onClick={() => handleRiwayahChange(riwayah.id)}
@@ -194,12 +166,12 @@ const AudioSettings = ({ isExpanded, onToggle }) => {
           </div>
 
           {/* Playback Speed */}
-          <div className="gap-y-3">
-            <h4 className="text-sm font-heading font-medium text-text-primary">
+          <div className="mt-3">
+            <h4 className="text-sm mb-2 font-heading font-medium text-text-primary">
               Default Playback Speed
             </h4>
             <div className="grid grid-cols-3 gap-2">
-              {playbackSpeeds.map((speed) => (
+              {PLAYBACK_SPEEDS.map((speed) => (
                 <button
                   key={speed}
                   onClick={() => handlePlaybackSpeedChange(speed)}
@@ -218,11 +190,11 @@ const AudioSettings = ({ isExpanded, onToggle }) => {
           </div>
 
           {/* Auto-play Settings */}
-          <div className="gap-y-3">
-            <h4 className="text-sm font-heading font-medium text-text-primary">
+          <div className="mt-3">
+            <h4 className="text-sm mb-2 font-heading font-medium text-text-primary">
               Auto-play Behavior
             </h4>
-            <div className="gap-y-3">
+            <div>
               <div className="flex items-center justify-between p-3 bg-background rounded-lg border border-border">
                 <div className="flex items-center gap-x-3">
                   <Icon name="Play" size={18} className="text-text-secondary" />
@@ -254,7 +226,7 @@ const AudioSettings = ({ isExpanded, onToggle }) => {
 
           {/* Current Selection Summary */}
           <div className="p-3 bg-accent-50 rounded-lg border border-accent-200">
-            <h5 className="text-sm font-heading font-medium text-text-primary mb-2">
+            <h5 className="text-sm  font-heading font-medium text-text-primary mb-2">
               Current Audio Configuration
             </h5>
             <div className="gap-y-1 text-xs text-text-secondary">

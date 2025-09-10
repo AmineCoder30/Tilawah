@@ -5,8 +5,6 @@ import PrimaryTabNavigation from "../../components/ui/PrimaryTabNavigation";
 import PersistentAudioPlayer from "../../components/ui/PersistentAudioPlayer";
 import axios from "axios";
 
-import FilterBar from "./components/FilterBar";
-import AlphabeticalJump from "./components/AlphabeticalJump";
 import SurahGrid from "./components/SurahGrid";
 import PullToRefresh from "./components/PullToRefresh";
 import Button from "../../components/ui/Button";
@@ -22,7 +20,6 @@ const SurahListing = () => {
   const [selectedRiwayah, setSelectedRiwayah] = useState("all");
   const [favoritedSurahs, setFavoritedSurahs] = useState([]);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
-  const [isFilterExpanded, setIsFilterExpanded] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const gridRef = useRef(null);
 
@@ -248,63 +245,6 @@ const SurahListing = () => {
     return Promise.resolve();
   };
 
-  const getActiveFilters = () => {
-    const filters = [];
-
-    if (searchQuery.trim()) {
-      filters.push({ type: "search", label: `Search: "${searchQuery}"` });
-    }
-
-    if (ayahRange.min > 1 || ayahRange.max < 286) {
-      filters.push({
-        type: "ayahRange",
-        label: `Ayahs: ${ayahRange.min}-${ayahRange.max}`,
-      });
-    }
-
-    if (selectedRiwayah !== "all") {
-      const riwayahLabels = {
-        hafs: "Hafs",
-        warsh: "Warsh",
-        qalun: "Qalun",
-        duri: "Duri",
-      };
-      filters.push({
-        type: "riwayah",
-        label: `Riwayah: ${riwayahLabels[selectedRiwayah]}`,
-      });
-    }
-
-    if (showFavoritesOnly) {
-      filters.push({ type: "favorites", label: "Favorites Only" });
-    }
-
-    return filters;
-  };
-
-  const handleClearFilter = (filterType) => {
-    switch (filterType) {
-      case "search":
-        setSearchQuery("");
-        break;
-      case "ayahRange":
-        setAyahRange({ min: 1, max: 286 });
-        break;
-      case "riwayah":
-        setSelectedRiwayah("all");
-        break;
-      case "favorites":
-        setShowFavoritesOnly(false);
-        break;
-      case "all":
-        setSearchQuery("");
-        setAyahRange({ min: 1, max: 286 });
-        setSelectedRiwayah("all");
-        setShowFavoritesOnly(false);
-        break;
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -336,21 +276,6 @@ const SurahListing = () => {
           </div>
         </div>
 
-        {/* Filter Bar */}
-        <FilterBar
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-          ayahRange={ayahRange}
-          onAyahRangeChange={setAyahRange}
-          selectedRiwayah={selectedRiwayah}
-          onRiwayahChange={setSelectedRiwayah}
-          activeFilters={getActiveFilters()}
-          onClearFilter={handleClearFilter}
-          resultCount={filteredSurahs.length}
-          isExpanded={isFilterExpanded}
-          onToggleExpanded={() => setIsFilterExpanded(!isFilterExpanded)}
-        />
-
         {/* Content */}
         <div className="px-4 lg:px-6 py-6">
           <PullToRefresh onRefresh={handleRefresh}>
@@ -364,13 +289,6 @@ const SurahListing = () => {
             </div>
           </PullToRefresh>
         </div>
-
-        {/* Alphabetical Jump Navigation */}
-        {/* <AlphabeticalJump
-          surahs={surahs}
-          onJumpToSurah={handleJumpToSurah}
-          isMobile={isMobile}
-        /> */}
       </main>
 
       <PersistentAudioPlayer />

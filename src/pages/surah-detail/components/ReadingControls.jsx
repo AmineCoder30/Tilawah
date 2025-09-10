@@ -1,19 +1,16 @@
 import React from "react";
 import Icon from "../../../components/AppIcon";
 import { useTheme } from "../../../contexts/ThemeContext";
+import { useDisplaySettings } from "../../../contexts/SettingsContext";
 
-const ReadingControls = ({
-  fontSize,
-  onFontSizeChange,
-  showArabicNumbers,
-  onArabicNumbersToggle,
-}) => {
+const ReadingControls = ({ showArabicNumbers, onArabicNumbersToggle }) => {
   const fontSizes = [
-    { id: "sm", label: "Small", size: "A" },
-    { id: "base", label: "Medium", size: "A" },
-    { id: "lg", label: "Large", size: "A" },
-    { id: "xl", label: "Extra Large", size: "A" },
+    { id: 12, label: "Small", size: "A" },
+    { id: 16, label: "Medium", size: "A" },
+    { id: 22, label: "Large", size: "A" },
+    { id: 32, label: "Extra Large", size: "A" },
   ];
+  const { textSize, updateDisplaySetting } = useDisplaySettings();
   const { toggleTheme, isDarkMode } = useTheme();
   return (
     <div className="sticky top-32 lg:top-48 z-40 bg-background border-b border-border shadow-gentle">
@@ -26,9 +23,9 @@ const ReadingControls = ({
               {fontSizes.map((size, index) => (
                 <button
                   key={size.id}
-                  onClick={() => onFontSizeChange(size.id)}
+                  onClick={() => updateDisplaySetting("textSize", size.id)}
                   className={`px-2 py-1 rounded text-xs font-medium transition-colors duration-200 ${
-                    fontSize === size.id
+                    textSize === size.id
                       ? "bg-primary text-primary-foreground"
                       : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
                   }`}
@@ -53,7 +50,7 @@ const ReadingControls = ({
           {/* Toggle Controls */}
           <div className="flex items-center gap-x-2">
             {/* Arabic Numbers Toggle */}
-            <button
+            {/* <button
               onClick={onArabicNumbersToggle}
               className={`flex items-center gap-x-2 px-3 py-2 rounded-lg transition-colors duration-200 ${
                 showArabicNumbers
@@ -67,7 +64,7 @@ const ReadingControls = ({
               <span className="text-sm font-medium">
                 {showArabicNumbers ? "١٢٣" : "123"}
               </span>
-            </button>
+            </button> */}
 
             {/* Dark Mode Toggle */}
             <button

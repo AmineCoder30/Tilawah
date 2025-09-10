@@ -10,29 +10,32 @@ import SurahDetail from "./pages/surah-detail";
 import SettingsPreferences from "./pages/settings-preferences";
 import SearchResults from "./pages/search-results";
 import NotFound from "./pages/NotFound";
+import { SettingsProvider } from "./contexts/SettingsContext";
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <ErrorBoundary>
-        <ScrollToTop />
-        <RouterRoutes>
-          {/* Define your routes here */}
-          <Route path="/" element={<Homepage />} />
-          <Route path="/homepage" element={<Homepage />} />
-          <Route path="/surah-listing" element={<SurahListing />} />
-          <Route
-            path="/audio-player-interface"
-            element={<AudioPlayerInterface />}
-          />
-          <Route path="/surah-detail" element={<SurahDetail />} />
-          <Route
-            path="/settings-preferences"
-            element={<SettingsPreferences />}
-          />
-          <Route path="/search-results" element={<SearchResults />} />
-          <Route path="*" element={<NotFound />} />
-        </RouterRoutes>
+        <SettingsProvider>
+          <ScrollToTop />
+          <RouterRoutes>
+            {/* Define your routes here */}
+            <Route path="/" element={<Homepage />} />
+            <Route path="/homepage" element={<Homepage />} />
+            <Route path="/surah-listing" element={<SurahListing />} />
+            <Route
+              path="/audio-player-interface"
+              element={<AudioPlayerInterface />}
+            />
+            <Route path="/surah-detail" element={<SurahDetail />} />
+            <Route
+              path="/settings-preferences"
+              element={<SettingsPreferences />}
+            />
+            <Route path="/search-results" element={<SearchResults />} />
+            <Route path="*" element={<NotFound />} />
+          </RouterRoutes>
+        </SettingsProvider>
       </ErrorBoundary>
     </BrowserRouter>
   );

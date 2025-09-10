@@ -11,8 +11,7 @@ import ReadingControls from "./components/ReadingControls";
 import SurahInfoSidebar from "./components/SurahInfoSidebar";
 import axios from "axios";
 import { useAudioPlayer } from "../../contexts/AudioPlayerContext";
-
-import { set } from "date-fns";
+import { useLanguageSettings } from "../../contexts/SettingsContext";
 
 const SurahDetail = () => {
   const [searchParams] = useSearchParams();
@@ -28,10 +27,13 @@ const SurahDetail = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [playbackMode, setPlaybackMode] = useState("individual");
   const [selectedRiwayah, setSelectedRiwayah] = useState(1);
+  const [translation, setTranslation] = useState([]);
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const [surahDetails, setSurahDetails] = useState(null);
   const [ayahs, setAyahs] = useState([]);
+  const { translationLanguage } = useLanguageSettings();
+  const surahNumber = parseInt(searchParams.get("id")) || 1;
 
   const {
     currentReciter,
@@ -71,7 +73,6 @@ const SurahDetail = () => {
       try {
         // You may want to get surah number from route params or searchParams
 
-        const surahNumber = parseInt(searchParams.get("id")) || 1;
         setCurrentSurah(surahNumber);
         const response = await axios.get(
           `https://api.alquran.cloud/v1/surah/${surahNumber}`
@@ -84,9 +85,23 @@ const SurahDetail = () => {
         console.error("Error fetching surah details:", error);
       }
     };
-
+    console.log(translationLanguage);
     fetchSurahDetails();
   }, []);
+  const fetchTranslations = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.alquran.cloud/v1/surah/${surahNumber}/${translationLanguage}`
+      );
+      console.log(
+        `Fetched Translations from: https://api.alquran.cloud/v1/surah/${surahNumber}/${translationLanguage}`
+      );
+      setTranslation(response.data.data.ayahs);
+      console.log("Fetched Translations:", response.data);
+    } catch (error) {
+      console.error("Error fetching translations:", error);
+    }
+  };
 
   // Initialize selected reciter
   useEffect(() => {
@@ -309,7 +324,7 @@ const SurahDetail = () => {
             ref={mainContentRef}
             className="px-4 lg:px-6 py-6 pb-32 lg:pb-6"
           >
-            <div className="max-w-4xl mx-auto gap-y-6">
+            <div className="max-w-4xl mx-auto flex flex-col gap-y-6">
               {ayahs.map((ayah, index) => (
                 <div
                   key={ayah.number}
@@ -324,7 +339,8 @@ const SurahDetail = () => {
                     onBookmark={() => handleAyahBookmark(ayah.number)}
                     isBookmarked={bookmarkedAyahs.includes(ayah.number)}
                     showArabicNumbers={showArabicNumbers}
-                    fontSize={fontSize}
+                    onShowTranslation={fetchTranslations}
+                    ayahTranslation={translation[index]?.text}
                   />
                 </div>
               ))}
