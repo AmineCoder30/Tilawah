@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Icon from "../AppIcon";
 import Button from "./Button";
+import { Link } from "react-router-dom";
 import Input from "./Input";
 import { useTheme } from "../../contexts/ThemeContext";
+import navigationItems from "../../constants/navigationItems";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -133,10 +135,23 @@ const Header = () => {
           <div className="relative">
             <button
               onClick={handleSettingsToggle}
-              className="p-2 hover:bg-surface-hover rounded-lg transition-colors duration-200"
+              className="p-2 hover:bg-surface-hover rounded-lg transition-colors duration-200 lg:hidden"
               aria-label="Settings"
             >
-              <Icon name="Settings" size={20} className="text-text-primary" />
+              <Icon name="Menu" size={20} className="text-text-primary" />
+            </button>
+            <button
+              onClick={toggleTheme}
+              className={`p-2 rounded-lg transition-colors duration-200 hidden lg:block ${
+                isDarkMode
+                  ? "bg-primary-50 text-primary"
+                  : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
+              }`}
+              aria-label={
+                isDarkMode ? "Switch to light mode" : "Switch to dark mode"
+              }
+            >
+              <Icon name={isDarkMode ? "Sun" : "Moon"} size={18} />
             </button>
 
             {isSettingsOpen && (
@@ -151,30 +166,44 @@ const Header = () => {
                 <div className="absolute right-0 top-full mt-2 w-64 bg-background border border-border rounded-lg shadow-gentle-lg z-400 animate-fade-in">
                   <div className="p-4">
                     <h3 className="text-sm font-heading font-medium text-text-primary mb-3">
-                      Quick Settings
+                      menu
                     </h3>
                     <div className="gap-y-2">
-                      {quickSettings.map((setting, index) => (
+                      {navigationItems.map((setting, index) => (
                         <button
                           key={index}
-                          onClick={setting.action}
                           className="w-full flex items-center justify-between px-3 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-surface-hover rounded-md transition-colors duration-200"
                         >
-                          <span>{setting.label}</span>
-                          <Icon name="ChevronRight" size={16} />
+                          <Link
+                            to={setting.path}
+                            className="w-full flex items-center gap-2"
+                          >
+                            <Icon name={setting.icon} size={16} />
+                            <span>{setting.label}</span>
+                          </Link>
                         </button>
                       ))}
-                    </div>
-                    <div className="mt-4 pt-3 border-t border-border">
-                      <Button
-                        variant="ghost"
-                        onClick={handleSettingsNavigation}
-                        className="w-full justify-start"
-                        iconName="Settings"
-                        iconPosition="left"
+                      <button
+                        onClick={toggleTheme}
+                        className="w-full flex items-center gap-2 px-3 py-2 text-sm text-text-secondary hover:text-text-primary hover:bg-surface-hover rounded-md transition-colors duration-200"
                       >
-                        All Settings
-                      </Button>
+                        <button
+                          onClick={toggleTheme}
+                          className={`p-1 rounded-lg transition-colors duration-200 ${
+                            isDarkMode
+                              ? "bg-primary-50 text-primary"
+                              : "text-text-secondary hover:text-text-primary hover:bg-surface-hover"
+                          }`}
+                          aria-label={
+                            isDarkMode
+                              ? "Switch to light mode"
+                              : "Switch to dark mode"
+                          }
+                        >
+                          <Icon name={isDarkMode ? "Sun" : "Moon"} size={16} />
+                        </button>
+                        <span>Toggle Mode</span>
+                      </button>
                     </div>
                   </div>
                 </div>
