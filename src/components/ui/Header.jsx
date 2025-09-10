@@ -59,21 +59,15 @@ const Header = () => {
             aria-label="Quran Reader Home"
           >
             <div className="w-8 h-8 lg:w-10 lg:h-10 bg-primary rounded-lg flex items-center justify-center">
-              <svg
-                viewBox="0 0 24 24"
-                className="w-5 h-5 lg:w-6 lg:h-6 text-primary-foreground"
-                fill="currentColor"
-              >
-                <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z" />
-                <path
-                  d="M12 16L13.09 22.26L20 23L13.09 23.74L12 30L10.91 23.74L4 23L10.91 22.26L12 16Z"
-                  opacity="0.6"
-                />
-              </svg>
+              <img
+                src="/assets/images/logo.png"
+                alt="AL-HUDA Logo"
+                className="h-full w-full rounded-md"
+              />
             </div>
             <div className="hidden sm:block">
               <h1 className="text-lg lg:text-xl font-heading font-semibold text-text-primary">
-                Quran Reader
+                AL-HUDA
               </h1>
               <p className="text-xs text-text-secondary font-caption">
                 القرآن الكريم
@@ -115,11 +109,7 @@ const Header = () => {
                 className="w-full flex items-center gap-x-3 px-4 py-2 bg-surface hover:bg-surface-hover rounded-lg border border-border transition-colors duration-200"
                 aria-label="Open search"
               >
-                <Icon
-                  name="Search"
-                  size={18}
-                  className="text-text-secondary"
-                />
+                <Icon name="Search" size={18} className="text-text-secondary" />
                 <span className="text-text-secondary font-body">
                   Search Quran...
                 </span>
@@ -136,11 +126,7 @@ const Header = () => {
             className="lg:hidden p-2 hover:bg-surface-hover rounded-lg transition-colors duration-200"
             aria-label="Search"
           >
-            <Icon
-              name="Search"
-              size={20}
-              className="text-text-primary"
-            />
+            <Icon name="Search" size={20} className="text-text-primary" />
           </button>
 
           {/* Settings Dropdown */}
@@ -150,11 +136,7 @@ const Header = () => {
               className="p-2 hover:bg-surface-hover rounded-lg transition-colors duration-200"
               aria-label="Settings"
             >
-              <Icon
-                name="Settings"
-                size={20}
-                className="text-text-primary"
-              />
+              <Icon name="Settings" size={20} className="text-text-primary" />
             </button>
 
             {isSettingsOpen && (
